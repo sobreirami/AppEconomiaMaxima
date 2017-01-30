@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Lançamentos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <data-filter [startDate]="dataFiltro" (changeMonth)="updateMonth($event)" (clickMonth)="onClickMonth()"></data-filter>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let lancamento of listarLancamentos">
+      <ion-item [ngClass]="{entrada: lancamentoEntrada(lancamento), saida: !lancamentoEntrada(lancamento)}" (click)="presentActionSheet(lancamento)">
+        <ion-row>
+          <ion-col width-67>
+            <h2>{{lancamento.descricao}}</h2>
+            <p>
+              {{lancamento.fornecedor}}
+            </p>
+            <p>
+              {{getDate(lancamento)}}
+            </p>
+          </ion-col>
+
+          <ion-col width-33>
+            <p>
+              {{lancamento.valor | currency:"BRL":true}}
+            </p>
+            <p>
+              {{situacaoLancamento(lancamento)}}
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+
+    </ion-item-sliding>
+  </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab color="primary" (click)="insert()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,25 @@
+page-lancamentos {
+
+}
+
+.entrada {
+  color: green;
+  background-color: rgba(0, 128, 0, 0.1);
+  margin-bottom: 5px;
+  border: 1px solid;
+}
+
+.saida {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.1);
+  margin-bottom: 5px;
+  border: 1px solid;
+}
+
+.texto-destaque {
+  text-align: center;
+}
+
+.fundo-transparente {
+  background-color: transparent;
+}
