@@ -125,4 +125,37 @@ export class DbLancamentos {
     });
   }
 
+  public getListGroupByConta(dataInicio, dataFim, entradaSaida) {
+    return new Promise((resolve, reject) => {
+      this.db.openDatabase({ name: "data.db", location: "default" }).then(() => {
+        this.db.executeSql(`
+          SELECT fornecedor, TOTAL(valor) as saldoFornecedor FROM lancamentos
+          where data >= ? and data <= ? and entradaSaida = ?
+          and pago = 1
+          GROUP BY fornecedor
+          `, [dataInicio.getTime(), dataFim.getTime(), entradaSaida]).then((data) => {
+            let lista = [];
+
+            if(data.rows.length > 0) {
+              for(let i = 0; i < data.rows.length; i++) {
+
+                let item = data.rows.item(i);
+                let fornecedor = {
+                  fornecedor: item.fornecedor,
+                  saldo: item.saldoFornecedor,
+                  percentual: 0
+                };
+                lista.push(fornecedor);
+              }
+              console.log("getListGroupByConta carregada com sucesso");
+              resolve(lista);
+            }
+          }, (error) => {
+            console.error("Não foi possivel carregar getListGroupByConta", error);
+            reject(error);
+          });
+        });
+      });
+  }
+
 }

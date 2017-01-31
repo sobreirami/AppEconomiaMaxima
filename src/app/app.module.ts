@@ -12,6 +12,7 @@ import { DbLancamentos } from '../providers/db-lancamentos'
 import { DataUtil } from '../providers/data-util'
 import { ModalLancamentosPage } from '../pages/modal-lancamentos/modal-lancamentos'
 import { DataFilterComponent } from '../components/data-filter/data-filter'
+import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relatorio-lancamentos'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DataFilterComponent } from '../components/data-filter/data-filter'
     ModalFornecedoresPage,
     LancamentosPage,
     ModalLancamentosPage,
-    DataFilterComponent
+    DataFilterComponent,
+    RelatorioLancamentosPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -39,7 +41,8 @@ import { DataFilterComponent } from '../components/data-filter/data-filter'
     ModalFornecedoresPage,
     LancamentosPage,
     ModalLancamentosPage,
-    DataFilterComponent
+    DataFilterComponent,
+    RelatorioLancamentosPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
