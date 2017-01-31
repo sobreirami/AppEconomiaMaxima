@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ActionSheetController, Events } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, AlertController, ActionSheetController, Events, Searchbar } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { DataUtil } from  '../../providers/data-util'
 import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
@@ -10,11 +10,14 @@ import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
 })
 export class LancamentosPage {
 
+  @ViewChild('searchbar') searchbar:Searchbar;
+
   listarLancamentos: Array<Object>;
   modal: any;
   nav: any;
   alert: any;
   dataFiltro: any;
+  searchMode: any;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +33,7 @@ export class LancamentosPage {
     this.modal = modalCtrl;
     this.alert = alertCtrl;
     this.dataFiltro = new Date();
+    this.searchMode = false;
   }
 
   public load() {
@@ -169,6 +173,32 @@ export class LancamentosPage {
       ]
     });
     actionSheet.present();
+  }
+
+  public clickbuscarLancamentos() {
+    this.searchMode = true;
+  }
+
+  public InputbuscarLancamentos(ev: any) {
+    let dataUtil = new DataUtil();
+    let dataInicio = dataUtil.getFirstDay(this.dataFiltro);
+    let dataFim = dataUtil.getLastDay(this.dataFiltro);
+
+    this.DbLancamentos.getList(dataInicio, dataFim).then((result) => {
+        this.listarLancamentos = <Array<Object>> result;
+        let val = ev.target.value;
+        if (val && val.trim() != '') {
+          this.listarLancamentos = this.listarLancamentos.filter((item: any) => {
+            return (item.descricao.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          })
+        }
+    }, (error) => {
+        console.log("ERROR: ", error);
+    });
+  }
+
+  public CancelbuscarLancamentos() {
+    this.searchMode = false;
   }
 
   ionViewDidLoad() {

@@ -1,12 +1,28 @@
 <ion-header>
   <ion-navbar color="primary">
-    <button ion-button menuToggle>
+    <button ion-button menuToggle [hidden]="searchMode">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Lançamentos</ion-title>
+    <ion-title [hidden]="searchMode">Lançamentos</ion-title>
+    <ion-buttons end [hidden]="searchMode">
+      <button ion-button icon-only (click)="clickbuscarLancamentos()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-searchbar
+      showCancelButton="true"
+      autocomplete="on"
+      placeholder="Pesquisar"
+      autocorrect="on"
+      animated="true"
+      [hidden]="!searchMode"
+      (ionInput)="InputbuscarLancamentos($event)"
+      (ionCancel)="CancelbuscarLancamentos($event)"
+      (ionBlur)="CancelbuscarLancamentos($event)"
+      autofocus>
+    </ion-searchbar>
   </ion-navbar>
 </ion-header>
-
 
 <ion-content padding>
   <data-filter [startDate]="dataFiltro" (changeMonth)="updateMonth($event)" (clickMonth)="onClickMonth()"></data-filter>
