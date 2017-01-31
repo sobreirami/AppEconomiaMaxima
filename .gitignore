@@ -24,7 +24,6 @@ temp/
 platforms/
 plugins/android.json
 plugins/ios.json
-resources/
 $RECYCLE.BIN/
 
 .DS_Store
@@ -32,5 +31,4 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 .editorconfig
-ionic.config.json
 config.xml

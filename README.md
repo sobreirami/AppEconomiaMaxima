@@ -26,11 +26,21 @@ $ cd AppEconomiaMaxima
 $ npm install
 ```
 
+## Rodando no celular
+
+```
+$ ionic platform add android
+```
+
+```
+$ ionic run android
+```
+
 ## Para contribuir
 
 Guia de contribuição [aqui](CONTRIBUTING.md)
 
 ## Autor
 
-| [<img src="https://avatars3.githubusercontent.com/u/986026?v=3&s=460"><br><sub>@sobreirami</sub>](https://github.com/sobreirami) |
+| [<img src="https://avatars3.githubusercontent.com/u/986026?v=3&s=460" height="115px"><br><sub>@sobreirami</sub>](https://github.com/sobreirami) |
 | :---: |
