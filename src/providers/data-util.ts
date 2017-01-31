@@ -38,8 +38,6 @@ export class DataUtil {
   }
 
   getLastDay(data) {
-    let newData = new Date(data);
-
     let ano = data.getFullYear();
     let mes = data.getMonth() + 1;
 

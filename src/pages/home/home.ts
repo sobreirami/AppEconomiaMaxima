@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Events } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 
 @Component({
@@ -18,7 +18,7 @@ export class HomePage {
     events.subscribe("saldo:updated", (saldo) => {
       this.saldo = parseFloat(saldo);
     });
-    
+
   }
 
   public load() {

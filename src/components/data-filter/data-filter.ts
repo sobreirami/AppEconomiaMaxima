@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IONIC_DIRECTIVES } from 'ionic-angular/config/directives';
+import { Component, EventEmitter } from '@angular/core';
 import { DataUtil } from '../../providers/data-util'
 
 @Component({
@@ -11,7 +10,7 @@ import { DataUtil } from '../../providers/data-util'
       <button class="fundo-transparente" (click)="previousMonth()"><ion-icon name="arrow-back"></ion-icon></button>
     </ion-col>
 
-    <ion-col width-75>
+    <ion-col width-80>
       <h4 class="texto-destaque" favorite (click)="executeClickMonth()">{{mesSelecionado}}</h4>
     </ion-col>
 
