@@ -4,6 +4,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { FornecedoresPage } from '../pages/fornecedores/fornecedores'
 import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relatorio-lancamentos'
+import { Database } from '../providers/database'
 
 @Component({
   templateUrl: 'app.html'
@@ -11,35 +12,34 @@ import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relator
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage = TabsPage;
+  rootPage: any = null;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
-    this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: TabsPage },
-      { title: 'Fornecedores', component: FornecedoresPage },
-      { title: 'Relatórios', component: RelatorioLancamentosPage }
-    ];
-
+  constructor(
+    public platform: Platform,
+    public db: Database
+  ) {
+      this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       StatusBar.overlaysWebView(true);
       StatusBar.backgroundColorByHexString('#1768f3');
-      Splashscreen.hide();
+    }).then(() => {
+      this.db.openDatabase().then(() => this.db.createTable()).then(() => {
+        this.rootPage = TabsPage;
+        this.pages = [
+          { title: 'Home', component: TabsPage },
+          { title: 'Fornecedores', component: FornecedoresPage },
+          { title: 'Relatórios', component: RelatorioLancamentosPage }
+        ];
+      });
     });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 }
