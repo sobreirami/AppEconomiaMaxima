@@ -13,6 +13,7 @@ import { DataUtil } from '../providers/data-util'
 import { ModalLancamentosPage } from '../pages/modal-lancamentos/modal-lancamentos'
 import { DataFilterComponent } from '../components/data-filter/data-filter'
 import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relatorio-lancamentos'
+import { Database } from '../providers/database'
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relator
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-     DbFornecedores, DbLancamentos, DataUtil
+     Database, DbFornecedores, DbLancamentos, DataUtil
   ]
 })
 export class AppModule {}
