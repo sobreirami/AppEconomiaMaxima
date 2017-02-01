@@ -4,32 +4,20 @@ import { SQLite } from 'ionic-native';
 @Injectable()
 export class DbLancamentos {
 
-  private db: SQLite;
+  private db: SQLite = null;
   private isOpen: boolean;
 
   constructor() {
     if(!this.isOpen) {
       this.db = new SQLite();
-      this.db.openDatabase({ name: "data.db", location: "default" }).then(() => {
-        this.isOpen = true;
-        this.db.executeSql("CREATE TABLE IF NOT EXISTS lancamentos (id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT, valor REAL, data INTEGER, fornecedor TEXT, entradaSaida TEXT, pago INTEGER)", {}).then((data) => {
-            if(data.length > 0)
-            {
-              console.log("Tabela criada: ", data);
-            }
-        }, (error) => {
-            console.error("Não foi possível criar a tabela ", error);
-        })
-      }, (error) => {
-        console.error("Não foi possível carregar o banco ", error);
-      });
+      this.db.openDatabase({ name: "data.db", location: "default" });
     }
   }
 
   public getList(dataInicio, dataFim) {
     return new Promise((resolve, reject) => {
       this.db.openDatabase({ name: "data.db", location: "default" }).then(() => {
-        this.db.executeSql("SELECT * FROM lancamentos WHERE data >= ? and data <= ?",
+        this.db.executeSql("SELECT * FROM lancamentos WHERE data >= ? and data <= ? ORDER BY data ASC",
         [dataInicio.getTime(), dataFim.getTime()]).then((data) => {
           let lancamentos = [];
 

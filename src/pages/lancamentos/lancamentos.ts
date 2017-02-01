@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ActionSheetController, Events, Searchbar } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ModalController, AlertController, ActionSheetController, Events } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { DataUtil } from  '../../providers/data-util'
 import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
@@ -10,20 +10,18 @@ import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
 })
 export class LancamentosPage {
 
-  @ViewChild('searchbar') searchbar:Searchbar;
-
   listarLancamentos: Array<Object>;
   modal: any;
   nav: any;
   alert: any;
   dataFiltro: any;
   searchMode: any;
+  db: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
-    private DbLancamentos: DbLancamentos,
     public alertCtrl: AlertController,
     private DataUtil: DataUtil,
     public actionSheetCtrl: ActionSheetController,
@@ -34,6 +32,7 @@ export class LancamentosPage {
     this.alert = alertCtrl;
     this.dataFiltro = new Date();
     this.searchMode = false;
+    this.db = new DbLancamentos();
   }
 
   public load() {
@@ -42,7 +41,7 @@ export class LancamentosPage {
     let dataInicio = dataUtil.getFirstDay(this.dataFiltro);
     let dataFim = dataUtil.getLastDay(this.dataFiltro);
 
-    this.DbLancamentos.getList(dataInicio, dataFim).then((result) => {
+    this.db.getList(dataInicio, dataFim).then((result) => {
         this.listarLancamentos = <Array<Object>> result;
     }, (error) => {
         console.log("ERROR: ", error);
@@ -54,7 +53,7 @@ export class LancamentosPage {
     let modalLancamentos = this.modal.create(ModalLancamentosPage);
     modalLancamentos.onDidDismiss((data) => {
       if(data) {
-        this.DbLancamentos.insert(data).then((result) => {
+        this.db.insert(data).then((result) => {
           this.updateSaldo();
           this.load();
         }, (error) => {
@@ -70,7 +69,7 @@ export class LancamentosPage {
     let modalLancamentos = this.modal.create(ModalLancamentosPage, {parametro: lancamento});
     modalLancamentos.onDidDismiss((data) => {
       if(data) {
-        this.DbLancamentos.edit(data).then((result) => {
+        this.db.edit(data).then((result) => {
           this.updateSaldo();
           this.load();
         }, (error) => {
@@ -90,7 +89,7 @@ export class LancamentosPage {
         {
           text: "Sim",
           handler: () => {
-            this.DbLancamentos.delete(lancamento).then((result) => {
+            this.db.delete(lancamento).then((result) => {
               let pos = this.listarLancamentos.indexOf(lancamento);
               this.listarLancamentos.splice(pos, 1);
               this.updateSaldo();
@@ -125,7 +124,7 @@ export class LancamentosPage {
   }
 
   updateSaldo() {
-    this.DbLancamentos.getSaldo().then((saldo) => {
+    this.db.getSaldo().then((saldo) => {
       this.events.publish("saldo:updated", saldo);
     });
   }
@@ -137,7 +136,8 @@ export class LancamentosPage {
   changePaymentStatus(lancamento) {
     lancamento.pago = lancamento.pago ? 0 : 1;
 
-    this.DbLancamentos.edit(lancamento);
+    this.db.edit(lancamento);
+    this.updateSaldo();
   }
 
   presentActionSheet(lancamento) {
@@ -184,7 +184,7 @@ export class LancamentosPage {
     let dataInicio = dataUtil.getFirstDay(this.dataFiltro);
     let dataFim = dataUtil.getLastDay(this.dataFiltro);
 
-    this.DbLancamentos.getList(dataInicio, dataFim).then((result) => {
+    this.db.getList(dataInicio, dataFim).then((result) => {
         this.listarLancamentos = <Array<Object>> result;
         let val = ev.target.value;
         if (val && val.trim() != '') {

@@ -4,25 +4,13 @@ import { SQLite } from 'ionic-native';
 @Injectable()
 export class DbFornecedores {
 
-  private db: SQLite;
+  private db: SQLite = null;
   private isOpen: boolean;
 
   constructor() {
     if(!this.isOpen) {
       this.db = new SQLite();
-      this.db.openDatabase({ name: "data.db", location: "default" }).then(() => {
-        this.isOpen = true;
-        this.db.executeSql("CREATE TABLE IF NOT EXISTS fornecedores(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT)", {}).then((data) => {
-            if(data.length > 0)
-            {
-              console.log("Tabela criada: ", data);
-            }
-        }, (error) => {
-            console.error("Não foi possível criar a tabela ", error);
-        })
-      }, (error) => {
-        console.error("Não foi possível carregar o banco ", error);
-      });
+      this.db.openDatabase({ name: "data.db", location: "default" });
     }
   }
 

@@ -9,20 +9,20 @@ import { DbLancamentos }  from '../../providers/db-lancamentos'
 export class HomePage {
 
   public saldo: any;
+  public db: any;
 
   constructor(
-    private DbLancamentos: DbLancamentos,
     public events: Events
   ) {
+    this.db = new DbLancamentos();
 
     events.subscribe("saldo:updated", (saldo) => {
       this.saldo = parseFloat(saldo);
     });
-
   }
 
   public load() {
-    this.DbLancamentos.getSaldo().then((saldo) => {
+    this.db.getSaldo().then((saldo) => {
       this.saldo = saldo;
     });
   }
@@ -30,6 +30,11 @@ export class HomePage {
   ionViewDidLoad() {
     this.load();
     console.log('ionViewDidLoad');
+  }
+
+  ionViewDidEnter() {
+    this.load();
+    console.log('ionViewDidEnter');
   }
 
 }
