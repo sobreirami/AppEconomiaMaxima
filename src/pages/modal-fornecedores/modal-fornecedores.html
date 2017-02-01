@@ -16,7 +16,7 @@
   <ion-list>
       <ion-item>
         <ion-label stacked>Descrição</ion-label>
-        <ion-input type="text" [(ngModel)]="fornecedor.descricao"></ion-input>
+        <ion-input type="text" [(ngModel)]="fornecedor.descricao" autocomplete="on" autocorrect="on"></ion-input>
       </ion-item>
     </ion-list>
     <button ion-button full danger (click)="salvar()">Salvar</button>
