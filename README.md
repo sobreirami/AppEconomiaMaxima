@@ -1,8 +1,12 @@
-<h1 align="center">App Economia máxima</h1>
+# App Economia máxima
 
-<p align="center">
-  Aplicativo desenvolvido em Ionic 2 para gerenciar economias de forma simples e eficiente
-</p>
+Aplicativo desenvolvido em Ionic 2 para gerenciar economias de forma simples e eficiente
+
+## Features
+- [ ] Contas a pagar
+- [ ] Contas a receber
+- [ ] Caixas
+- [ ] Instalar automático
 
 ## Como utilizar
 
