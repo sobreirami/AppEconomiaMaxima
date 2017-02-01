@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, PopoverController } from 'ionic-angular';
 import { DbFornecedores } from '../../providers/db-fornecedores'
 import { ModalFornecedoresPage } from "../modal-fornecedores/modal-fornecedores"
+import { PopoverPage } from '../popover/popover'
 
 @Component({
   selector: 'page-fornecedores',
@@ -19,7 +20,8 @@ export class FornecedoresPage {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     private dbFornecedores: DbFornecedores,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private popoverCtrl: PopoverController
   ) {
       this.nav = navCtrl;
       this.modal = modalCtrl;
@@ -90,4 +92,12 @@ export class FornecedoresPage {
     });
     this.nav.push(confirm);
   }
+
+  public openMenu(ev) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: ev
+    });
+  }
+
 }

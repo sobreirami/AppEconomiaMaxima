@@ -17,7 +17,7 @@ export class DbFornecedores {
   public getList() {
     return new Promise((resolve, reject) => {
       this.db.openDatabase({ name: "data.db", location: "default" }).then(() => {
-        this.db.executeSql("SELECT id, descricao FROM fornecedores", {}).then((data) => {
+        this.db.executeSql("SELECT id, descricao FROM fornecedores ORDER BY descricao ASC", {}).then((data) => {
           let fornecedores = [];
 
           if(data.rows.length > 0) {

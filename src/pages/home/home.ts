@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { Events, PopoverController } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
+import { PopoverPage } from '../popover/popover'
 
 @Component({
   selector: 'page-home',
@@ -12,7 +13,8 @@ export class HomePage {
   public db: any;
 
   constructor(
-    public events: Events
+    public events: Events,
+    private popoverCtrl: PopoverController
   ) {
     this.db = new DbLancamentos();
 
@@ -24,6 +26,13 @@ export class HomePage {
   public load() {
     this.db.getSaldo().then((saldo) => {
       this.saldo = saldo;
+    });
+  }
+
+  public openMenu(ev) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: ev
     });
   }
 

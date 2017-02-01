@@ -1,23 +1,24 @@
 <ion-header>
   <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Relatório de lançamentos</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="funnel"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 
 <ion-content padding>
   <ion-segment [(ngModel)]="entradaSaida">
     <ion-segment-button value="entrada" (click)="onSelect('entrada')">Entrada</ion-segment-button>
-    <ion-segment-button value="saida" (click)="onSelect('saida')">Saida</ion-segment-button>
+    <ion-segment-button value="saida" (click)="onSelect('saida')">Saída</ion-segment-button>
   </ion-segment>
 
   <ion-list>
     <ion-item *ngFor="let item of listaContas">
       <ion-row>
-        <ion-col width-50="">
+        <ion-col width-50>
           <h2>{{item.fornecedor}}</h2>
         </ion-col>
 
@@ -33,6 +34,16 @@
         {{item.percentual | number:"1.2-2"}}%
       </p>
     </ion-item>
+    <ion-card [ngClass]="tipoLancamentoResumo(entradaSaida)">
+      <ion-card-header>
+        <ion-col width-50>
+          <h2>{{texto}}</h2>
+        </ion-col>
+        <ion-col width-50>
+          {{total | currency:"BRL":true}}
+        </ion-col>
+      </ion-card-header>
+    </ion-card>
   </ion-list>
 
 </ion-content>

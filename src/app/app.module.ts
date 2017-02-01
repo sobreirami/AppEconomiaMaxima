@@ -14,6 +14,7 @@ import { ModalLancamentosPage } from '../pages/modal-lancamentos/modal-lancament
 import { DataFilterComponent } from '../components/data-filter/data-filter'
 import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relatorio-lancamentos'
 import { Database } from '../providers/database'
+import { PopoverPage } from '../pages/popover/popover'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { Database } from '../providers/database'
     LancamentosPage,
     ModalLancamentosPage,
     DataFilterComponent,
-    RelatorioLancamentosPage
+    RelatorioLancamentosPage,
+    PopoverPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -43,7 +45,8 @@ import { Database } from '../providers/database'
     LancamentosPage,
     ModalLancamentosPage,
     DataFilterComponent,
-    RelatorioLancamentosPage
+    RelatorioLancamentosPage,
+    PopoverPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

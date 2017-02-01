@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, ActionSheetController, Events } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController,
+  ActionSheetController, Events, PopoverController } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { DataUtil } from  '../../providers/data-util'
 import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
+import { PopoverPage } from '../popover/popover'
 
 @Component({
   selector: 'page-lancamentos',
@@ -25,7 +27,8 @@ export class LancamentosPage {
     public alertCtrl: AlertController,
     private DataUtil: DataUtil,
     public actionSheetCtrl: ActionSheetController,
-    private events: Events
+    private events: Events,
+    private popoverCtrl: PopoverController
   ) {
     this.nav = navCtrl;
     this.modal = modalCtrl;
@@ -199,6 +202,13 @@ export class LancamentosPage {
 
   public CancelbuscarLancamentos() {
     this.searchMode = false;
+  }
+
+  public openMenu(ev) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: ev
+    });
   }
 
   ionViewDidLoad() {
