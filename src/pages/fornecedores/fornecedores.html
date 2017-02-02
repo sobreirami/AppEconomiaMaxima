@@ -1,7 +1,28 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Fornecedores</ion-title>
+  <ion-navbar color="primary" [hidden]="searchMode">
+    <ion-title [hidden]="searchMode">Fornecedores</ion-title>
+    <ion-buttons end [hidden]="searchMode">
+      <button ion-button icon-only (click)="clickbuscarFornecedores()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="insert()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+  <ion-searchbar #searchbar
+    style="background-color:#387ef5"
+    showCancelButton="true"
+    autocomplete="on"
+    placeholder="Pesquisar"
+    autocorrect="on"
+    animated="true"
+    [hidden]="!searchMode"
+    (ionInput)="InputbuscarFornecedores($event)"
+    (ionCancel)="CancelbuscarFornecedores($event)"
+    (ionBlur)="CancelbuscarFornecedores($event)"
+    autofocus>
+  </ion-searchbar>
 </ion-header>
 
 <ion-content padding>
@@ -16,7 +37,4 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <ion-fab bottom right>
-    <button ion-fab color="primary" (click)="insert()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
 </ion-content>

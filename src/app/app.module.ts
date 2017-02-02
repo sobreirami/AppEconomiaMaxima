@@ -15,6 +15,7 @@ import { DataFilterComponent } from '../components/data-filter/data-filter'
 import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relatorio-lancamentos'
 import { Database } from '../providers/database'
 import { PopoverPage } from '../pages/popover/popover'
+import { ModalFiltroRelatorioLancamentosPage } from '../pages/modal-filtro-relatorio-lancamentos/modal-filtro-relatorio-lancamentos'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PopoverPage } from '../pages/popover/popover'
     ModalLancamentosPage,
     DataFilterComponent,
     RelatorioLancamentosPage,
-    PopoverPage
+    PopoverPage,
+    ModalFiltroRelatorioLancamentosPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -46,7 +48,8 @@ import { PopoverPage } from '../pages/popover/popover'
     ModalLancamentosPage,
     DataFilterComponent,
     RelatorioLancamentosPage,
-    PopoverPage
+    PopoverPage,
+    ModalFiltroRelatorioLancamentosPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

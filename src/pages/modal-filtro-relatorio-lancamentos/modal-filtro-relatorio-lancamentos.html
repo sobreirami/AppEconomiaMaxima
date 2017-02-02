@@ -1,15 +1,13 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-buttons start left>
-      <button ion-button icon-only (click)="cancel()">
+      <button ion-button icon-only (click)="voltar()">
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>
-      {{ titulo }}
-    </ion-title>
+    <ion-title>Filtrar lançamentos</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="salvar()">
+      <button ion-button icon-only (click)="pesquisar()">
         <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
@@ -19,33 +17,23 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label stacked>Descrição</ion-label>
-      <ion-input type="text" [(ngModel)]="descricao" autocomplete="on" autocorrect="on"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Valor</ion-label>
-      <ion-input type="number" [(ngModel)]="valor"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Data</ion-label>
+      <ion-label stacked>Data inicial</ion-label>
       <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY"
+      [(ngModel)]="dataInicial"
       cancelText="Cancelar"
       doneText="Selecionar"
-      [(ngModel)]="data"
       monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho,
       Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"></ion-datetime>
     </ion-item>
-
     <ion-item>
-      <ion-label stacked>Entrada/Saída</ion-label>
-      <ion-select okText="Selecionar" cancelText="Cancelar" [(ngModel)]="entradaSaida">
-        <ion-option value="entrada">Entrada</ion-option>
-        <ion-option value="saida">Saída</ion-option>
-      </ion-select>
+      <ion-label stacked>Data final</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY"
+      [(ngModel)]="dataFinal"
+      cancelText="Cancelar"
+      doneText="Selecionar"
+      monthNames="Janeiro, Fevereiro, Março, Abril, Maio, Junho,
+      Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"></ion-datetime>
     </ion-item>
-
     <ion-item>
       <ion-label stacked>Fornecedor</ion-label>
       <ion-select okText="Selecionar" cancelText="Cancelar" type="text" [(ngModel)]="fornecedor">
@@ -54,11 +42,13 @@
         </ion-option>
       </ion-select>
     </ion-item>
-
     <ion-item>
       <ion-label stacked>Pago</ion-label>
       <ion-checkbox [(ngModel)]="pago"></ion-checkbox>
     </ion-item>
+    <ion-item>
+      <ion-label stacked>Não pago</ion-label>
+      <ion-checkbox [(ngModel)]="naoPago"></ion-checkbox>
+    </ion-item>
   </ion-list>
-
 </ion-content>

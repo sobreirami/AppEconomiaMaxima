@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, PopoverController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, AlertController,
+   Searchbar, Keyboard } from 'ionic-angular';
 import { DbFornecedores } from '../../providers/db-fornecedores'
 import { ModalFornecedoresPage } from "../modal-fornecedores/modal-fornecedores"
 import { PopoverPage } from '../popover/popover'
@@ -9,11 +10,13 @@ import { PopoverPage } from '../popover/popover'
   templateUrl: 'fornecedores.html'
 })
 export class FornecedoresPage {
+  @ViewChild('searchbar') searchBar;
 
   listarFornecedores: Array<Object>;
   modal: any;
   nav: any;
   alert: any;
+  searchMode: any;
 
   constructor(
     public navCtrl: NavController,
@@ -21,11 +24,12 @@ export class FornecedoresPage {
     public modalCtrl: ModalController,
     private dbFornecedores: DbFornecedores,
     public alertCtrl: AlertController,
-    private popoverCtrl: PopoverController
+    public keyboard: Keyboard
   ) {
       this.nav = navCtrl;
       this.modal = modalCtrl;
       this.alert = alertCtrl;
+      this.searchMode = false;
   }
 
   public ionViewDidLoad() {
@@ -93,11 +97,35 @@ export class FornecedoresPage {
     this.nav.push(confirm);
   }
 
-  public openMenu(ev) {
-    let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({
-      ev: ev
+  public clickbuscarFornecedores() {
+    this.searchMode = true;
+
+    setTimeout(() => {
+      //Keyboard.show();
+      this.searchBar.setFocus();
+    }, 350);
+  }
+
+  public InputbuscarFornecedores(ev: any) {
+
+    this.dbFornecedores.getList().then((result) => {
+        this.listarFornecedores = <Array<Object>> result;
+
+        let val = ev.target.value;
+        if (val && val.trim() != '') {
+          this.listarFornecedores = this.listarFornecedores.filter((item: any) => {
+            return (item.descricao.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          })
+        }
+
+    }, (error) => {
+        console.log("ERROR: ", error);
     });
+  }
+
+  public CancelbuscarFornecedores() {
+    this.searchMode = false;
+    this.searchBar._searchbarInput.nativeElement.autofocus = false;
   }
 
 }

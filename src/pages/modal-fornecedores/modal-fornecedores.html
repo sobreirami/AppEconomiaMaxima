@@ -1,12 +1,16 @@
 <ion-header>
   <ion-navbar color="primary">
+    <ion-buttons start left>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
-      Fornecedor
+      {{ titulo }}
     </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="cancel()">
-        <span ion-text color="primary" showWhen="ios">Voltar</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="salvar()">
+        <ion-icon name="checkmark"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -19,5 +23,4 @@
         <ion-input type="text" [(ngModel)]="fornecedor.descricao" autocomplete="on" autocorrect="on"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button full danger (click)="salvar()">Salvar</button>
 </ion-content>

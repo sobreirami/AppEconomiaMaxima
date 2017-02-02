@@ -9,6 +9,7 @@ export class ModalFornecedoresPage {
 
   view: any;
   fornecedor: any;
+  titulo: string;
 
   constructor(
     public navCtrl: NavController,
@@ -17,6 +18,13 @@ export class ModalFornecedoresPage {
   ) {
     this.view = viewCtrl;
     this.fornecedor = navParams.get("parametro") || {descricao: ""};
+
+    if(this.fornecedor.descricao) {
+      this.titulo = this.fornecedor.descricao;
+    } else {
+      this.titulo = 'Novo fornecedor';
+    }
+
   }
 
   cancel() {

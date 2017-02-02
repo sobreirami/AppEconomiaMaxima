@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController,
-  ActionSheetController, Events, PopoverController } from 'ionic-angular';
+  ActionSheetController, Events, PopoverController, Searchbar, Keyboard } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { DataUtil } from  '../../providers/data-util'
 import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
@@ -11,6 +11,7 @@ import { PopoverPage } from '../popover/popover'
   templateUrl: 'lancamentos.html'
 })
 export class LancamentosPage {
+  @ViewChild('searchbar') searchBar;
 
   listarLancamentos: Array<Object>;
   modal: any;
@@ -28,7 +29,8 @@ export class LancamentosPage {
     private DataUtil: DataUtil,
     public actionSheetCtrl: ActionSheetController,
     private events: Events,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    public keyboard: Keyboard
   ) {
     this.nav = navCtrl;
     this.modal = modalCtrl;
@@ -180,6 +182,11 @@ export class LancamentosPage {
 
   public clickbuscarLancamentos() {
     this.searchMode = true;
+
+    setTimeout(() => {
+      //Keyboard.show();
+      this.searchBar.setFocus();
+    }, 350);
   }
 
   public InputbuscarLancamentos(ev: any) {
@@ -202,6 +209,7 @@ export class LancamentosPage {
 
   public CancelbuscarLancamentos() {
     this.searchMode = false;
+    this.searchBar._searchbarInput.nativeElement.autofocus = false;
   }
 
   public openMenu(ev) {

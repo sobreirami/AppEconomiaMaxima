@@ -18,6 +18,7 @@ export class ModalLancamentosPage {
   entradaSaida: any;
   pago: any;
   fornecedores: any;
+  titulo: string;
 
   constructor(
     public navCtrl: NavController,
@@ -36,6 +37,13 @@ export class ModalLancamentosPage {
     this.entradaSaida = this.lancamento.entradaSaida;
     this.pago = this.lancamento.pago;
 
+
+    if(this.descricao) {
+      this.titulo = this.descricao;
+    } else {
+      this.titulo = 'Novo lançamento';
+    }
+
     this.dbFornecedores.getList().then((result) => {
         this.fornecedores = <Array<Object>> result;
     }, (error) => {
@@ -48,7 +56,7 @@ export class ModalLancamentosPage {
     this.view.dismiss();
   }
 
-  save() {
+  salvar() {
     let dataUtil = new DataUtil;
     let data = dataUtil.parseData(this.data);
 
@@ -64,6 +72,11 @@ export class ModalLancamentosPage {
 
   _getDate(data) {
     let dataUtil = new DataUtil();
+
+    if(!data) {
+      data = new Date();
+    }
+    
     return dataUtil.formatDate(data);
   }
 

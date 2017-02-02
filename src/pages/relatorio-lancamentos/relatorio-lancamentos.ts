@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { DataUtil } from  '../../providers/data-util'
 import { DbLancamentos } from '../../providers/db-lancamentos'
 import { PopoverPage } from '../popover/popover'
+import { ModalFiltroRelatorioLancamentosPage } from '../modal-filtro-relatorio-lancamentos/modal-filtro-relatorio-lancamentos'
 
 @Component({
   selector: 'page-relatorio-lancamentos',
@@ -17,17 +18,19 @@ export class RelatorioLancamentosPage {
   resumo: any;
   texto: string;
   total: any;
+  modal: any;
 
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams,
      private DbLancamentos: DbLancamentos,
-     private popoverCtrl: PopoverController
+     public modalCtrl: ModalController,
   ) {
     this.nav = navCtrl;
     this.dataFiltro = new Date();
     this.entradaSaida = "entrada";
-    this._getList(this.entradaSaida)
+    this._getList(this.entradaSaida);
+    this.modal = modalCtrl;
   }
 
   public _getList(entradaSaida) {
@@ -93,11 +96,14 @@ export class RelatorioLancamentosPage {
       return "background-resumo-saida";
   }
 
-  public openMenu(ev) {
-    let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({
-      ev: ev
+  public filtroRelatorio() {
+    let modalfiltroRelatorio = this.modal.create(ModalFiltroRelatorioLancamentosPage);
+    modalfiltroRelatorio.onDidDismiss((data) => {
+      if(data) {
+        console.log(data.pagoNaoPago);
+      }
     });
+    this.nav.push(modalfiltroRelatorio);
   }
 
   ionViewDidLoad() {

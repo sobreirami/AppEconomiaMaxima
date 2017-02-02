@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, App } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
-import { FornecedoresPage } from '../pages/fornecedores/fornecedores'
-import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relatorio-lancamentos'
 import { Database } from '../providers/database'
 
 @Component({
