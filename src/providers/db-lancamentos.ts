@@ -83,31 +83,83 @@ export class DbLancamentos {
     });
   }
 
-  public getSaldo() {
+  public getSaldo(dataInicio, dataFim) {
     return new Promise((resolve, reject) => {
       this.db.openDatabase({ name: "data.db", location: "default" }).then(() => {
-        this.db.executeSql(`SELECT TOTAL(valor) as saldo, entradaSaida from lancamentos
-          where pago = 1 and entradaSaida = 'entrada'
-          UNION
-          SELECT TOTAL(valor), entradaSaida as saldo from lancamentos
-          where pago = 1 and entradaSaida = 'saida'`,[]).then((data) => {
+        this.db.executeSql(`SELECT TOTAL(valor) as saldo, entradaSaida, 1 as TP from lancamentos
+        WHERE pago = 1 AND entradaSaida = 'entrada' AND data >= ? and data <= ?
+        UNION
+        SELECT TOTAL(valor) as saldo, entradaSaida, 2 as TP  from lancamentos
+        where pago = 1 AND entradaSaida = 'saida' AND data >= ? and data <= ?
+        UNION
+        SELECT TOTAL(valor) as saldo, entradaSaida, 3 as TP  from lancamentos
+        where pago = 1 AND entradaSaida = 'entrada' AND data < ?
+        UNION
+        SELECT TOTAL(valor) as saldo, entradaSaida, 4 as TP  from lancamentos
+        where pago = 1 AND entradaSaida = 'saida' AND data < ?
+        UNION
+        SELECT TOTAL(valor) as saldo, entradaSaida, 5 as TP  from lancamentos
+        where pago = 0 AND entradaSaida = 'entrada' AND data >= ? and data <= ?
+        UNION
+        SELECT TOTAL(valor) as saldo, entradaSaida, 6 as TP  from lancamentos
+        where pago = 0 AND entradaSaida = 'saida' AND data >= ? and data <= ?`,
+        [
+          dataInicio.getTime(), dataFim.getTime(),
+          dataInicio.getTime(), dataFim.getTime(),
+          dataInicio.getTime(),
+          dataInicio.getTime(),
+          dataInicio.getTime(), dataFim.getTime(),
+          dataInicio.getTime(), dataFim.getTime()
+        ]).then((data) => {
+
           let saldo = 0;
+          let totalEntrada = 0;
+          let totalSaida = 0;
+          let saldoMesPassado = 0;
+          let totalReceber = 0;
+          let totalPagar = 0;
 
           if(data.rows.length > 0) {
             for(let i = 0; i < data.rows.length; i++) {
               let lancamento = data.rows.item(i);
 
-              if (lancamento.entradaSaida == "entrada")
-                saldo += lancamento.saldo;
-              else
-                saldo -= lancamento.saldo;
+              if (lancamento.entradaSaida == "entrada") {
+                if(lancamento.TP == 1) {
+                  saldo += lancamento.saldo;
+                  totalEntrada = lancamento.saldo;
+                } else if(lancamento.TP == 3) {
+                  saldo += lancamento.saldo;
+                  saldoMesPassado += lancamento.saldo;
+                } else if(lancamento.TP == 5) {
+                  totalReceber += lancamento.saldo;
+                }
+              } else {
+                if(lancamento.TP == 2) {
+                  saldo -= lancamento.saldo;
+                  totalSaida = lancamento.saldo;
+                } else if(lancamento.TP == 4) {
+                  saldo -= lancamento.saldo;
+                  saldoMesPassado -= lancamento.saldo;
+                } else if(lancamento.TP == 6) {
+                  totalPagar += lancamento.saldo;
+                }
+              }
             }
           }
+
+          let indicadores = {
+            totalEntrada: totalEntrada,
+            totalSaida: totalSaida,
+            saldo: saldo,
+            saldoMesPassado: saldoMesPassado,
+            totalReceber: totalReceber,
+            totalPagar: totalPagar
+          };
           console.log("Saldo carregado com sucesso");
-          resolve(saldo);
+          resolve(indicadores);
         }, (error) => {
           console.error("Não foi possivel carregar o saldo", error);
-          reject(error);
+          reject(false);
         });
       });
     });

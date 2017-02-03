@@ -129,8 +129,12 @@ export class LancamentosPage {
   }
 
   updateSaldo() {
-    this.db.getSaldo().then((saldo) => {
-      this.events.publish("saldo:updated", saldo);
+    let dataUtil = new DataUtil();
+    let dataInicial = dataUtil.getFirstDay(new Date());
+    let dataFinal = dataUtil.getLastDay(new Date());
+
+    this.db.getSaldo(dataInicial, dataFinal).then((indicadores) => {
+      this.events.publish("indicadores:updated", indicadores);
     });
   }
 

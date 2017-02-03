@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Events, PopoverController } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { PopoverPage } from '../popover/popover'
+import { DataUtil } from '../../providers/data-util'
 
 @Component({
   selector: 'page-home',
@@ -11,6 +12,13 @@ export class HomePage {
 
   public saldo: any;
   public db: any;
+  public totalEntrada: any;
+  public totalSaida: any;
+  public totalReceber: any;
+  public totalPagar: any;
+  public dataInicial: any;
+  public dataFinal: any;
+  public saldoMesPassado: any;
 
   constructor(
     public events: Events,
@@ -18,14 +26,29 @@ export class HomePage {
   ) {
     this.db = new DbLancamentos();
 
-    events.subscribe("saldo:updated", (saldo) => {
-      this.saldo = parseFloat(saldo);
+    let dataUtil = new DataUtil();
+
+    this.dataInicial = dataUtil.getFirstDay(new Date());
+    this.dataFinal = dataUtil.getLastDay(new Date());
+
+    events.subscribe("indicadores:updated", (indicadores) => {
+      this.totalEntrada = parseFloat(indicadores.totalEntrada);
+      this.totalSaida = parseFloat(indicadores.totalSaida);
+      this.saldo = parseFloat(indicadores.saldo);
+      this.saldoMesPassado = parseFloat(indicadores.saldoMesPassado);
+      this.totalReceber = parseFloat(indicadores.totalReceber);
+      this.totalPagar = parseFloat(indicadores.totalPagar);
     });
   }
 
   public load() {
-    this.db.getSaldo().then((saldo) => {
-      this.saldo = saldo;
+    this.db.getSaldo(this.dataInicial, this.dataFinal).then((indicadores) => {
+      this.totalEntrada = indicadores.totalEntrada;
+      this.totalSaida = indicadores.totalSaida;
+      this.saldo = indicadores.saldo;
+      this.saldoMesPassado = indicadores.saldoMesPassado;
+      this.totalReceber = indicadores.totalReceber;
+      this.totalPagar = indicadores.totalPagar;
     });
   }
 
