@@ -19,6 +19,9 @@ export class RelatorioLancamentosPage {
   texto: string;
   total: any;
   modal: any;
+  dataInicio: any;
+  dataFim: any;
+  dataUtil:any;
 
   constructor(
     public navCtrl: NavController,
@@ -27,22 +30,30 @@ export class RelatorioLancamentosPage {
      public modalCtrl: ModalController,
   ) {
     this.nav = navCtrl;
-    this.dataFiltro = new Date();
     this.entradaSaida = "entrada";
-    this._getList(this.entradaSaida);
     this.modal = modalCtrl;
+
+    this.dataUtil = new DataUtil();
+    this.dataFiltro = new Date();
+    this.dataInicio = this.dataUtil.getFirstDay(this.dataFiltro);
+    this.dataFim = this.dataUtil.getLastDay(this.dataFiltro);
+
+    this._getList(this.entradaSaida);
   }
 
   public _getList(entradaSaida) {
-    let dataUtil = new DataUtil();
+    this.DbLancamentos.getListGroupByConta(this.dataInicio, this.dataFim, entradaSaida).then((listaContas) => {
 
-    let dataInicio = dataUtil.getFirstDay(this.dataFiltro);
-    let dataFim = dataUtil.getLastDay(this.dataFiltro);
+      if(listaContas) {
+        this.listaContas = listaContas;
+        this._calcPercentual();
+        this.getResumo();
+      } else {
+        this.listaContas = [];
+        this._calcPercentual();
+        this.getResumo();
+      }
 
-    this.DbLancamentos.getListGroupByConta(dataInicio, dataFim, entradaSaida).then((listaContas) => {
-      this.listaContas = listaContas;
-      this._calcPercentual();
-      this.getResumo();
     });
   }
 
@@ -76,7 +87,7 @@ export class RelatorioLancamentosPage {
   }
 
   public onSelect(entradaSaida) {
-    console.log(entradaSaida);
+    this.entradaSaida = entradaSaida;
     this._getList(entradaSaida);
   }
 
@@ -100,7 +111,22 @@ export class RelatorioLancamentosPage {
     let modalfiltroRelatorio = this.modal.create(ModalFiltroRelatorioLancamentosPage);
     modalfiltroRelatorio.onDidDismiss((data) => {
       if(data) {
-        console.log(data.pagoNaoPago);
+        this.DbLancamentos.getListGroupByConta(data.dataInicial, data.dataFinal, this.entradaSaida).then((listaContas) => {
+
+          this.dataInicio = data.dataInicial;
+          this.dataFim = data.dataFinal;
+
+          if(listaContas) {
+            this.listaContas = listaContas;
+            this._calcPercentual();
+            this.getResumo();
+          } else {
+            this.listaContas = [];
+            this._calcPercentual();
+            this.getResumo();
+          }
+
+        });
       }
     });
     this.nav.push(modalfiltroRelatorio);

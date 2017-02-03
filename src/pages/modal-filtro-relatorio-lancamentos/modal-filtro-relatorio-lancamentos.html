@@ -35,20 +35,6 @@
       Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label stacked>Fornecedor</ion-label>
-      <ion-select okText="Selecionar" cancelText="Cancelar" type="text" [(ngModel)]="fornecedor">
-        <ion-option *ngFor="let item of fornecedores" value="{{item.descricao}}">
-          {{item.descricao}}
-        </ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Pago</ion-label>
-      <ion-checkbox [(ngModel)]="pago"></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Não pago</ion-label>
-      <ion-checkbox [(ngModel)]="naoPago"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

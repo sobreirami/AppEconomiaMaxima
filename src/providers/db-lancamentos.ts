@@ -137,6 +137,8 @@ export class DbLancamentos {
               }
               console.log("getListGroupByConta carregada com sucesso");
               resolve(lista);
+            } else {
+              resolve(false);
             }
           }, (error) => {
             console.error("Não foi possivel carregar getListGroupByConta", error);

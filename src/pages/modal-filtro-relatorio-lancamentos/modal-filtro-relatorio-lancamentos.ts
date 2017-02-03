@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { DataUtil } from '../../providers/data-util'
-import { DbFornecedores } from '../../providers/db-fornecedores'
 
 @Component({
   selector: 'page-modal-filtro-relatorio-lancamentos',
@@ -11,10 +10,6 @@ export class ModalFiltroRelatorioLancamentosPage {
 
   view: any;
   lancamento: any;
-  fornecedores: any;
-  fornecedor: any;
-  pago: any;
-  naoPago: any;
   dataInicial: any;
   dataFinal: any;
 
@@ -22,17 +17,14 @@ export class ModalFiltroRelatorioLancamentosPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    private dbFornecedores: DbFornecedores
   ) {
     this.view = viewCtrl;
-
     this.lancamento = {};
 
-    this.dbFornecedores.getList().then((result) => {
-        this.fornecedores = <Array<Object>> result;
-    }, (error) => {
-        console.log("ERROR: ", error);
-    });
+    let dataUtil = new DataUtil();
+
+    this.dataInicial = dataUtil.formatDate(dataUtil.getFirstDay(new Date()));
+    this.dataFinal = dataUtil.formatDate(dataUtil.getLastDay(new Date()));
   }
 
   public voltar() {
@@ -41,23 +33,12 @@ export class ModalFiltroRelatorioLancamentosPage {
 
   public pesquisar() {
 
-    let pagoNaoPago;
     let dataUtil = new DataUtil;
     let dataIni = dataUtil.parseData(this.dataInicial);
     let dataFim = dataUtil.parseData(this.dataFinal);
 
-    if(this.pago && !this.naoPago) {
-      pagoNaoPago = '1';
-    } else if(!this.pago && this.naoPago) {
-      pagoNaoPago = '0';
-    } else {
-      pagoNaoPago = '0,1';
-    }
-
-    this.lancamento.dataInicial = dataIni.getTime();
-    this.lancamento.dataFinal = dataFim.getTime();
-    this.lancamento.fornecedor = this.fornecedor;
-    this.lancamento.pagoNaoPago = pagoNaoPago;
+    this.lancamento.dataInicial = dataIni;
+    this.lancamento.dataFinal = dataFim;
 
     this.view.dismiss(this.lancamento);
   }
