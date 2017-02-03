@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Events, PopoverController } from 'ionic-angular';
+import { Events, PopoverController, ModalController, NavController } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { PopoverPage } from '../popover/popover'
 import { DataUtil } from '../../providers/data-util'
+import { DashboardChartPage } from '../dashboard-chart/dashboard-chart'
 
 @Component({
   selector: 'page-home',
@@ -22,12 +23,13 @@ export class HomePage {
 
   constructor(
     public events: Events,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    public modalCtrl: ModalController,
+    public navCtrl: NavController
   ) {
     this.db = new DbLancamentos();
 
     let dataUtil = new DataUtil();
-
     this.dataInicial = dataUtil.getFirstDay(new Date());
     this.dataFinal = dataUtil.getLastDay(new Date());
 
