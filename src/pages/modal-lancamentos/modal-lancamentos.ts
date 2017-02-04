@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { DataUtil } from '../../providers/data-util'
 import { DbFornecedores } from '../../providers/db-fornecedores'
 
@@ -9,6 +9,7 @@ import { DbFornecedores } from '../../providers/db-fornecedores'
 })
 export class ModalLancamentosPage {
 
+  nav: any;
   view: any;
   lancamento: any;
   descricao: any;
@@ -19,14 +20,18 @@ export class ModalLancamentosPage {
   pago: any;
   fornecedores: any;
   titulo: string;
+  alert: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    private dbFornecedores: DbFornecedores
+    private dbFornecedores: DbFornecedores,
+    public alertCtrl: AlertController
   ) {
     this.view = viewCtrl;
+    this.nav = navCtrl;
+    this.alert = alertCtrl;
     this.lancamento = navParams.get("parametro") || {descricao: ""};
 
     this.descricao = this.lancamento.descricao;
@@ -67,7 +72,37 @@ export class ModalLancamentosPage {
     this.lancamento.fornecedor = this.fornecedor;
     this.lancamento.entradaSaida = this.entradaSaida;
 
-    this.view.dismiss(this.lancamento);
+    if(this.validInput(this.lancamento)) {
+      this.view.dismiss(this.lancamento);
+    } else {
+      this.nav.push(this.alert.create({
+         title: "Atenção!",
+         message: "Preencha os campos obrigatórios.",
+         buttons: [
+           {
+             text: "Ok"
+           }
+         ]
+      }));
+    }
+  }
+
+  validInput(data) {
+    let validar = true;
+
+    if(!data.descricao) {
+      validar = false;
+    }
+    if(!data.valor) {
+      validar = false;
+    }
+    if(!data.data) {
+      validar = false;
+    }
+    if(!data.entradaSaida) {
+      validar = false;
+    }
+    return validar;
   }
 
   _getDate(data) {
@@ -76,7 +111,7 @@ export class ModalLancamentosPage {
     if(!data) {
       data = new Date();
     }
-    
+
     return dataUtil.formatDate(data);
   }
 

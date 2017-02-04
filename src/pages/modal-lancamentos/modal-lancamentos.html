@@ -19,17 +19,17 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      <ion-label stacked>Descrição</ion-label>
+      <ion-label stacked>Descrição*</ion-label>
       <ion-input type="text" [(ngModel)]="descricao" autocomplete="on" autocorrect="on"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Valor</ion-label>
+      <ion-label stacked>Valor*</ion-label>
       <ion-input type="number" [(ngModel)]="valor"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Data</ion-label>
+      <ion-label stacked>Data*</ion-label>
       <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY"
       cancelText="Cancelar"
       doneText="Selecionar"
@@ -39,7 +39,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Entrada/Saída</ion-label>
+      <ion-label stacked>Entrada/Saída*</ion-label>
       <ion-select okText="Selecionar" cancelText="Cancelar" [(ngModel)]="entradaSaida">
         <ion-option value="entrada">Entrada</ion-option>
         <ion-option value="saida">Saída</ion-option>
