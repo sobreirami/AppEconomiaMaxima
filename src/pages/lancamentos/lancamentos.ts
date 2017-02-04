@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController,
-  ActionSheetController, Events, PopoverController, Searchbar, Keyboard } from 'ionic-angular';
+  ActionSheetController, Events, PopoverController, Keyboard } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { DataUtil } from  '../../providers/data-util'
 import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'

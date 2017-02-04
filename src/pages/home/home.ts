@@ -3,7 +3,6 @@ import { Events, PopoverController, ModalController, NavController } from 'ionic
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { PopoverPage } from '../popover/popover'
 import { DataUtil } from '../../providers/data-util'
-import { DashboardChartPage } from '../dashboard-chart/dashboard-chart'
 
 @Component({
   selector: 'page-home',

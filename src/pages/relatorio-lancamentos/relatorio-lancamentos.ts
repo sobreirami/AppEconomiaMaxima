@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { DataUtil } from  '../../providers/data-util'
 import { DbLancamentos } from '../../providers/db-lancamentos'
-import { PopoverPage } from '../popover/popover'
 import { ModalFiltroRelatorioLancamentosPage } from '../modal-filtro-relatorio-lancamentos/modal-filtro-relatorio-lancamentos'
 
 @Component({

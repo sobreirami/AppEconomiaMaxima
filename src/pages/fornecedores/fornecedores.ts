@@ -1,9 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController,
-   Searchbar, Keyboard } from 'ionic-angular';
+   Keyboard } from 'ionic-angular';
 import { DbFornecedores } from '../../providers/db-fornecedores'
 import { ModalFornecedoresPage } from "../modal-fornecedores/modal-fornecedores"
-import { PopoverPage } from '../popover/popover'
 
 @Component({
   selector: 'page-fornecedores',

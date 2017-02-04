@@ -16,7 +16,6 @@ import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relator
 import { Database } from '../providers/database'
 import { PopoverPage } from '../pages/popover/popover'
 import { ModalFiltroRelatorioLancamentosPage } from '../pages/modal-filtro-relatorio-lancamentos/modal-filtro-relatorio-lancamentos'
-import { DashboardChartPage } from '../pages/dashboard-chart/dashboard-chart'
 
 @NgModule({
   declarations: [
