@@ -58,12 +58,17 @@ export class LancamentosPage {
     let modalLancamentos = this.modal.create(ModalLancamentosPage);
     modalLancamentos.onDidDismiss((data) => {
       if(data) {
-        this.db.insert(data).then((result) => {
-          this.updateSaldo();
-          this.load();
-        }, (error) => {
-          console.log("ERROR: ", error);
-        });
+        if(!data.fornecedor) {
+          data.fornecedor = 'Não informado';
+        }
+        if(data.descricao && data.valor && data.entradaSaida) {
+          this.db.insert(data).then((result) => {
+            this.updateSaldo();
+            this.load();
+          }, (error) => {
+            console.log("ERROR: ", error);
+          });
+        }
       }
     });
     this.nav.push(modalLancamentos);
@@ -74,12 +79,17 @@ export class LancamentosPage {
     let modalLancamentos = this.modal.create(ModalLancamentosPage, {parametro: lancamento});
     modalLancamentos.onDidDismiss((data) => {
       if(data) {
-        this.db.edit(data).then((result) => {
-          this.updateSaldo();
-          this.load();
-        }, (error) => {
-          console.log("ERROR: ", error);
-        });
+        if(!data.fornecedor) {
+          data.fornecedor = 'Não informado';
+        }
+        if(data.descricao && data.valor && data.entradaSaida) {
+          this.db.edit(data).then((result) => {
+            this.updateSaldo();
+            this.load();
+          }, (error) => {
+            console.log("ERROR: ", error);
+          });
+        }
       }
     });
     this.nav.push(modalLancamentos);
@@ -190,7 +200,7 @@ export class LancamentosPage {
     setTimeout(() => {
       //Keyboard.show();
       this.searchBar.setFocus();
-    }, 350);
+    }, 150);
   }
 
   public InputbuscarLancamentos(ev: any) {

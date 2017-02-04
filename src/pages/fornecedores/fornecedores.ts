@@ -103,7 +103,7 @@ export class FornecedoresPage {
     setTimeout(() => {
       //Keyboard.show();
       this.searchBar.setFocus();
-    }, 350);
+    }, 450);
   }
 
   public InputbuscarFornecedores(ev: any) {
