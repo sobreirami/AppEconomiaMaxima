@@ -19,6 +19,7 @@ export class HomePage {
   public dataInicial: any;
   public dataFinal: any;
   public saldoMesPassado: any;
+  public saldoPrevisto: any;
 
   constructor(
     public events: Events,
@@ -39,6 +40,8 @@ export class HomePage {
       this.saldoMesPassado = parseFloat(indicadores.saldoMesPassado);
       this.totalReceber = parseFloat(indicadores.totalReceber);
       this.totalPagar = parseFloat(indicadores.totalPagar);
+      
+      this.saldoPrevisto = this.saldo + this.totalReceber - this.totalPagar;
     });
   }
 
@@ -50,6 +53,8 @@ export class HomePage {
       this.saldoMesPassado = indicadores.saldoMesPassado;
       this.totalReceber = indicadores.totalReceber;
       this.totalPagar = indicadores.totalPagar;
+
+      this.saldoPrevisto = this.saldo + this.totalReceber - this.totalPagar;
     });
   }
 
