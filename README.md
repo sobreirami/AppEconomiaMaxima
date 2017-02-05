@@ -5,8 +5,10 @@ Aplicativo desenvolvido em Ionic 2 para gerenciar economias de forma simples e e
 ## Features
 - [ ] Contas a pagar
 - [ ] Contas a receber
+- [ ] Push notification de contas a receber x pagar
+- [ ] Configuração de senha para acesso no APP
 - [ ] Caixas
-- [ ] Instalar automático
+- [ ] Instalador automático
 
 ## Como utilizar
 
