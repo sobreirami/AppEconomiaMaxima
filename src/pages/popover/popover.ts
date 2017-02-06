@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ViewController, NavController } from 'ionic-angular';
 import { FornecedoresPage } from '../fornecedores/fornecedores'
 import { RelatorioLancamentosPage } from '../relatorio-lancamentos/relatorio-lancamentos'
+import { ConfigucacoesPage } from '../configucacoes/configucacoes'
 
 @Component({
   template: `
-    <ion-list class="popover-page">
+    <ion-list no-lines>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
@@ -25,7 +26,8 @@ export class PopoverPage {
 
     this.pages = [
       { title: 'Fornecedores', component: FornecedoresPage },
-      { title: 'Relatórios', component: RelatorioLancamentosPage }
+      { title: 'Relatórios', component: RelatorioLancamentosPage },
+      { title: 'Configurações', component: ConfigucacoesPage }
     ];
   }
 

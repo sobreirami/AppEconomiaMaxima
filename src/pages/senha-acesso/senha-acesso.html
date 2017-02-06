@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start left>
+      <button ion-button icon-only (click)="cancelar()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ titulo }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="salvar()">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+      <ion-item>
+        <ion-label stacked>Senha*</ion-label>
+        <ion-input type=number style="-webkit-text-security:disc;" [(ngModel)]="password"></ion-input>
+      </ion-item>
+    </ion-list>
+</ion-content>

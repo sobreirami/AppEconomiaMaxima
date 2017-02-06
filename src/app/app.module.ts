@@ -10,12 +10,16 @@ import { ModalFornecedoresPage } from '../pages/modal-fornecedores/modal-fornece
 import { LancamentosPage } from '../pages/lancamentos/lancamentos'
 import { DbLancamentos } from '../providers/db-lancamentos'
 import { DataUtil } from '../providers/data-util'
+import { DbUsuarios } from '../providers/db-usuarios'
 import { ModalLancamentosPage } from '../pages/modal-lancamentos/modal-lancamentos'
 import { DataFilterComponent } from '../components/data-filter/data-filter'
 import { RelatorioLancamentosPage } from '../pages/relatorio-lancamentos/relatorio-lancamentos'
 import { Database } from '../providers/database'
 import { PopoverPage } from '../pages/popover/popover'
 import { ModalFiltroRelatorioLancamentosPage } from '../pages/modal-filtro-relatorio-lancamentos/modal-filtro-relatorio-lancamentos'
+import { ConfigucacoesPage } from '../pages/configucacoes/configucacoes'
+import { SegurancaPage } from '../pages/seguranca/seguranca'
+import { SenhaAcessoPage } from '../pages/senha-acesso/senha-acesso'
 
 @NgModule({
   declarations: [
@@ -29,7 +33,10 @@ import { ModalFiltroRelatorioLancamentosPage } from '../pages/modal-filtro-relat
     DataFilterComponent,
     RelatorioLancamentosPage,
     PopoverPage,
-    ModalFiltroRelatorioLancamentosPage
+    ModalFiltroRelatorioLancamentosPage,
+    ConfigucacoesPage,
+    SegurancaPage,
+    SenhaAcessoPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -49,11 +56,14 @@ import { ModalFiltroRelatorioLancamentosPage } from '../pages/modal-filtro-relat
     DataFilterComponent,
     RelatorioLancamentosPage,
     PopoverPage,
-    ModalFiltroRelatorioLancamentosPage
+    ModalFiltroRelatorioLancamentosPage,
+    ConfigucacoesPage,
+    SegurancaPage,
+    SenhaAcessoPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-     Database, DbFornecedores, DbLancamentos, DataUtil
+     Database, DbFornecedores, DbLancamentos, DataUtil, DbUsuarios
   ]
 })
 export class AppModule {}
