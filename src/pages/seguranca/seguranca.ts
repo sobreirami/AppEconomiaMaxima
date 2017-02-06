@@ -148,7 +148,8 @@ export class SegurancaPage {
             clientId: "economiamaxima",
             username: "economiamaxima",
             disableBackup: true,
-            locale: "pt"
+            locale: "pt",
+            dialogMessage: "Confirme a impressão digital."
            })
             .then(result => {
                if (result.withFingerprint) {
