@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, ActionSheetController,
-AlertController } from 'ionic-angular';
+AlertController, ToastController } from 'ionic-angular';
 import { AndroidFingerprintAuth } from 'ionic-native';
 import { DbUsuarios } from '../../providers/db-usuarios'
 import { SenhaAcessoPage } from '../senha-acesso/senha-acesso'
@@ -19,13 +19,15 @@ export class SegurancaPage {
   public labelSenha: any;
   public suportefingerPrint: any;
   public alert: any;
+  public LabelToast: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController
   ) {
     this.nav = navCtrl;
     this.modal = modalCtrl;
@@ -52,8 +54,10 @@ export class SegurancaPage {
       if(usuario.password) {
         console.log('Tem senha cadastrada');
         this.labelSenha = "Editar";
+        this.LabelToast = "alterada";
       } else {
         this.labelSenha = "Incluir";
+        this.LabelToast = "cadastrada";
         console.log('Não tem senha cadastrada');
       }
     }, (error) => {
@@ -74,6 +78,11 @@ export class SegurancaPage {
             ModalSenhaAcesso.onDidDismiss((password) => {
               if(password) {
                 this.db.senhaUser(password).then((result) => {
+                  let toast = this.toastCtrl.create({
+                    message: 'Senha de acesso ' + this.LabelToast,
+                    duration: 3000
+                  });
+                  toast.present();
                   this.load();
                 }, (error) => {
                   console.log("ERROR: ", error);
@@ -94,6 +103,11 @@ export class SegurancaPage {
                   text: "Sim",
                   handler: () => {
                     this.db.senhaUser("").then((result) => {
+                      let toast = this.toastCtrl.create({
+                        message: 'Senha de acesso excluída',
+                        duration: 3000
+                      });
+                      toast.present();
                       this.load();
                     }, (error) => {
                       console.log("ERROR: ", error);
@@ -118,10 +132,6 @@ export class SegurancaPage {
       ]
     });
     actionSheet.present();
-  }
-
-  deleteSenha() {
-
   }
 
   isAvailablefingerPrint() {
@@ -156,6 +166,11 @@ export class SegurancaPage {
                    console.log("Successfully encrypted credentials.");
                    console.log("Encrypted credentials: " + result.token);
                    this.db.biometriaUser(result.token).then((result) => {
+                     let toast = this.toastCtrl.create({
+                       message: 'Impressão digital habilitada',
+                       duration: 3000
+                     });
+                     toast.present();
                      this.load();
                    }, (error) => {
                      console.log("ERROR: ", error);
@@ -185,6 +200,11 @@ export class SegurancaPage {
       .then((result) => {
         console.log("Successfully deleted cipher: " + JSON.stringify(result));
         this.db.biometriaUser("").then((result) => {
+          let toast = this.toastCtrl.create({
+            message: 'Impressão digital desabilitada',
+            duration: 3000
+          });
+          toast.present();
           this.load();
         }, (error) => {
           console.log("ERROR: ", error);

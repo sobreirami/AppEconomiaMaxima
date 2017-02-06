@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController,
-  ActionSheetController, Events, PopoverController, Keyboard } from 'ionic-angular';
+  ActionSheetController, Events, PopoverController, Keyboard, ToastController } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { DataUtil } from  '../../providers/data-util'
 import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
@@ -30,7 +30,8 @@ export class LancamentosPage {
     public actionSheetCtrl: ActionSheetController,
     private events: Events,
     private popoverCtrl: PopoverController,
-    public keyboard: Keyboard
+    public keyboard: Keyboard,
+    public toastCtrl: ToastController
   ) {
     this.nav = navCtrl;
     this.modal = modalCtrl;
@@ -63,6 +64,11 @@ export class LancamentosPage {
         }
         if(data.descricao && data.valor && data.entradaSaida) {
           this.db.insert(data).then((result) => {
+            let toast = this.toastCtrl.create({
+              message: 'Lançamento cadastrado com sucesso',
+              duration: 3000
+            });
+            toast.present();
             this.updateSaldo();
             this.load();
           }, (error) => {
@@ -84,6 +90,11 @@ export class LancamentosPage {
         }
         if(data.descricao && data.valor && data.entradaSaida) {
           this.db.edit(data).then((result) => {
+            let toast = this.toastCtrl.create({
+              message: 'Lançamento editado com sucesso',
+              duration: 3000
+            });
+            toast.present();
             this.updateSaldo();
             this.load();
           }, (error) => {
@@ -107,6 +118,11 @@ export class LancamentosPage {
             this.db.delete(lancamento).then((result) => {
               let pos = this.listarLancamentos.indexOf(lancamento);
               this.listarLancamentos.splice(pos, 1);
+              let toast = this.toastCtrl.create({
+                message: 'Lançamento excluído com sucesso',
+                duration: 3000
+              });
+              toast.present();
               this.updateSaldo();
             })
           }

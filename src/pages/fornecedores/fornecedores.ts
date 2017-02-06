@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController,
-   Keyboard } from 'ionic-angular';
+   Keyboard, ToastController } from 'ionic-angular';
 import { DbFornecedores } from '../../providers/db-fornecedores'
 import { ModalFornecedoresPage } from "../modal-fornecedores/modal-fornecedores"
 
@@ -23,7 +23,8 @@ export class FornecedoresPage {
     public modalCtrl: ModalController,
     private dbFornecedores: DbFornecedores,
     public alertCtrl: AlertController,
-    public keyboard: Keyboard
+    public keyboard: Keyboard,
+    public toastCtrl: ToastController
   ) {
       this.nav = navCtrl;
       this.modal = modalCtrl;
@@ -49,6 +50,11 @@ export class FornecedoresPage {
     modalFornecedores.onDidDismiss((data) => {
       if(data) {
         this.dbFornecedores.insert(data).then((result) => {
+          let toast = this.toastCtrl.create({
+            message: 'Fornecedor cadastrado com sucesso',
+            duration: 3000
+          });
+          toast.present();
           this.load();
         }, (error) => {
           console.log("ERROR: ", error);
@@ -64,6 +70,11 @@ export class FornecedoresPage {
     modalFornecedores.onDidDismiss((data) => {
       if(data) {
         this.dbFornecedores.edit(data).then((result) => {
+          let toast = this.toastCtrl.create({
+            message: 'Fornecedor alterado com sucesso',
+            duration: 3000
+          });
+          toast.present();
           this.load();
         }, (error) => {
           console.log("ERROR: ", error);
@@ -85,6 +96,11 @@ export class FornecedoresPage {
             this.dbFornecedores.delete(fornecedor).then((result) => {
               let pos = this.listarFornecedores.indexOf(fornecedor);
               this.listarFornecedores.splice(pos, 1);
+              let toast = this.toastCtrl.create({
+                message: 'Fornecedor excluído com sucesso',
+                duration: 3000
+              });
+              toast.present();
             })
           }
         },

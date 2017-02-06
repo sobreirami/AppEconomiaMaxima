@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AndroidFingerprintAuth } from 'ionic-native';
 import { DbUsuarios } from '../../providers/db-usuarios'
 import { TabsPage } from '../tabs/tabs';
@@ -20,7 +20,8 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public toastCtrl: ToastController
   ) {
     this.nav = navCtrl;
     this.db = new DbUsuarios();
@@ -46,7 +47,11 @@ export class LoginPage {
       console.log("Successful password authentication.");
       this.nav.push(TabsPage);
     } else {
-      console.log("Erro");
+      let toast = this.toastCtrl.create({
+        message: 'Senha inválida',
+        duration: 3000
+      });
+      toast.present();
     }
   }
 
@@ -63,11 +68,19 @@ export class LoginPage {
         console.log("Successful biometric authentication.");
         this.nav.push(TabsPage);
       } else {
-        console.log("Erro");
+        let toast = this.toastCtrl.create({
+          message: 'Impressão digital inválida',
+          duration: 3000
+        });
+        toast.present();
       }
     })
     .catch(error => {
-      console.log("Erro");
+      let toast = this.toastCtrl.create({
+        message: 'Impressão digital inválida',
+        duration: 3000
+      });
+      toast.present();
     });
   }
 
