@@ -26,7 +26,7 @@ export class PopoverPage {
 
     this.pages = [
       { title: 'Fornecedores', component: FornecedoresPage },
-      { title: 'Relatórios', component: RelatorioLancamentosPage },
+      { title: 'Relatórios de lançamentos', component: RelatorioLancamentosPage },
       { title: 'Configurações', component: ConfigucacoesPage }
     ];
   }

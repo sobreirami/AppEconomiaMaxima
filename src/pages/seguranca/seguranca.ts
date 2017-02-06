@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ActionSheetController,
+AlertController } from 'ionic-angular';
 import { AndroidFingerprintAuth } from 'ionic-native';
 import { DbUsuarios } from '../../providers/db-usuarios'
 import { SenhaAcessoPage } from '../senha-acesso/senha-acesso'
@@ -17,11 +18,14 @@ export class SegurancaPage {
   public userToken: any;
   public labelSenha: any;
   public suportefingerPrint: any;
+  public alert: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController,
+    public alertCtrl: AlertController
   ) {
     this.nav = navCtrl;
     this.modal = modalCtrl;
@@ -29,6 +33,7 @@ export class SegurancaPage {
     this.db = new DbUsuarios();
     this.userToken = false;
     this.suportefingerPrint = false;
+    this.alert = alertCtrl;
   }
 
   load() {
@@ -46,9 +51,9 @@ export class SegurancaPage {
       }
       if(usuario.password) {
         console.log('Tem senha cadastrada');
-        this.labelSenha = "Alterar senha";
+        this.labelSenha = "Editar";
       } else {
-        this.labelSenha = "Cadastrar senha";
+        this.labelSenha = "Incluir";
         console.log('Não tem senha cadastrada');
       }
     }, (error) => {
@@ -57,17 +62,66 @@ export class SegurancaPage {
   }
 
   senha() {
-    let ModalSenhaAcesso = this.modal.create(SenhaAcessoPage);
-    ModalSenhaAcesso.onDidDismiss((password) => {
-      if(password) {
-        this.db.senhaUser(password).then((result) => {
-          this.load();
-        }, (error) => {
-          console.log("ERROR: ", error);
-        });
-      }
+
+    let actionSheet = this.actionSheetCtrl.create({
+      title: "Senha de acesso",
+      buttons: [
+        {
+          text: this.labelSenha,
+          icon: 'create',
+          handler: () => {
+            let ModalSenhaAcesso = this.modal.create(SenhaAcessoPage);
+            ModalSenhaAcesso.onDidDismiss((password) => {
+              if(password) {
+                this.db.senhaUser(password).then((result) => {
+                  this.load();
+                }, (error) => {
+                  console.log("ERROR: ", error);
+                });
+              }
+            });
+            this.nav.push(ModalSenhaAcesso);
+          }
+        },{
+          text: 'Excluir senha',
+          icon: 'trash',
+          handler: () => {
+            let confirm = this.alert.create({
+              title: "Excluir",
+              message: "Gostaria de realmente excluir sua senha de acesso?",
+              buttons: [
+                {
+                  text: "Sim",
+                  handler: () => {
+                    this.db.senhaUser("").then((result) => {
+                      this.load();
+                    }, (error) => {
+                      console.log("ERROR: ", error);
+                    });
+                  }
+                },
+                {
+                  text: "Não"
+                }
+              ]
+            });
+            this.nav.push(confirm);
+          }
+        },{
+          text: 'Cancelar',
+          icon: 'arrow-back',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
     });
-    this.nav.push(ModalSenhaAcesso);
+    actionSheet.present();
+  }
+
+  deleteSenha() {
+
   }
 
   isAvailablefingerPrint() {

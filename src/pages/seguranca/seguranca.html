@@ -8,7 +8,7 @@
   <ion-list>
     <button ion-item (click)="senha()">
       <ion-icon name="swap" item-left></ion-icon>
-      {{labelSenha}}
+      Senha de acesso
     </button>
     <ion-item [hidden]="!suportefingerPrint">
       <ion-toggle [(ngModel)]="finferPrint" (ionChange)="habilitarFingerPrint()" checked="{{finferPrint}}"></ion-toggle>

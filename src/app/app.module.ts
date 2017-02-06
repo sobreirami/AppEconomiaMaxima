@@ -20,6 +20,7 @@ import { ModalFiltroRelatorioLancamentosPage } from '../pages/modal-filtro-relat
 import { ConfigucacoesPage } from '../pages/configucacoes/configucacoes'
 import { SegurancaPage } from '../pages/seguranca/seguranca'
 import { SenhaAcessoPage } from '../pages/senha-acesso/senha-acesso'
+import { LoginPage } from '../pages/login/login';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SenhaAcessoPage } from '../pages/senha-acesso/senha-acesso'
     ModalFiltroRelatorioLancamentosPage,
     ConfigucacoesPage,
     SegurancaPage,
-    SenhaAcessoPage
+    SenhaAcessoPage,
+    LoginPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -59,7 +61,8 @@ import { SenhaAcessoPage } from '../pages/senha-acesso/senha-acesso'
     ModalFiltroRelatorioLancamentosPage,
     ConfigucacoesPage,
     SegurancaPage,
-    SenhaAcessoPage
+    SenhaAcessoPage,
+    LoginPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
