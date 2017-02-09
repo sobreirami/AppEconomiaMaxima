@@ -4,6 +4,11 @@ import { Injectable } from '@angular/core';
 export class DataUtil {
 
   parseCalendar(dataMiliseconds, horaNotificacoes) {
+
+    if(horaNotificacoes == null) {
+      horaNotificacoes = 8;
+    }
+
     let data = new Date(dataMiliseconds);
     let ano = data.getFullYear();
     let mes = data.getMonth();
@@ -13,6 +18,10 @@ export class DataUtil {
   }
 
   parseCompare(data1, horaNotificacoes) {
+
+    if(horaNotificacoes == null) {
+      horaNotificacoes = 8;
+    }
 
     let data = new Date(data1);
     let ano = data.getFullYear();

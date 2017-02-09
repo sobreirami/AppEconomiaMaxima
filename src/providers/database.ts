@@ -28,6 +28,7 @@ export class Database {
       this.db.executeSql("SELECT * FROM configuracoes LIMIT 1", []).then((data) => {
         if(data.rows.length == 0) {
           this.db.executeSql("INSERT INTO configuracoes (calendario, notificacao) VALUES (?, ?)", [1, 1]);
+          console.log("Permissoes padroes setada com sucesso");
         }
       } , (error) => {
         console.log(error);
@@ -37,6 +38,7 @@ export class Database {
     let sqlConfiguracoesAlterTable = "ALTER TABLE configuracoes ADD COLUMN horaNotificacao INTEGER";
     this.db.executeSql(sqlConfiguracoesAlterTable, []).then(() => {
       this.db.executeSql("UPDATE configuracoes SET horaNotificacao = ?", [8]).then((data) => {
+        console.log("Hora notificacao padrao setada com sucesso");
       } , (error) => {
         console.log(error);
       });
