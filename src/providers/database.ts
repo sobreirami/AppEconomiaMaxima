@@ -22,6 +22,28 @@ export class Database {
 
     let sqlCriaUsuario = "INSERT OR REPLACE INTO usuarios (username) VALUES ('economiamaxima')"
     this.db.executeSql(sqlCriaUsuario, []);
+
+    let sqlConfiguracoes = "CREATE TABLE IF NOT EXISTS configuracoes(id INTEGER PRIMARY KEY AUTOINCREMENT, calendario INTEGER, notificacao INTEGER, idCalendario INTEGER)";
+    this.db.executeSql(sqlConfiguracoes, []).then(() => {
+      this.db.executeSql("SELECT * FROM configuracoes LIMIT 1", []).then((data) => {
+        if(data.rows.length == 0) {
+          this.db.executeSql("INSERT INTO configuracoes (calendario, notificacao) VALUES (?, ?)", [1, 1]);
+        }
+      } , (error) => {
+        console.log(error);
+      });
+    });
+
+    let sqlConfiguracoesAlterTable = "ALTER TABLE configuracoes ADD COLUMN horaNotificacao INTEGER";
+    this.db.executeSql(sqlConfiguracoesAlterTable, []).then(() => {
+      this.db.executeSql("UPDATE configuracoes SET horaNotificacao = ?", [8]).then((data) => {
+      } , (error) => {
+        console.log(error);
+      });
+    }, (error) => {
+      console.log(error);
+    });
+
   }
 
   openDatabase(){

@@ -12,53 +12,53 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header>
-      <h1>Indicadores do mês</h1>
+      <h1 color="primary">Indicadores do mês</h1>
     </ion-card-header>
     <hr>
     <ion-list>
       <ion-item>
-        <ion-icon item-left name="logo-usd"></ion-icon>
+        <ion-icon color="primary" item-left name="logo-usd"></ion-icon>
         <h2>Saldo mês passado</h2>
         <h3 item-right>{{saldoMesPassado | currency:"BRL":true}}</h3>
       </ion-item>
       <ion-item>
-        <ion-icon item-left name="trending-up"></ion-icon>
+        <ion-icon color="primary" item-left name="trending-up"></ion-icon>
         <h2>Total de entradas</h2>
         <h3 item-right>{{totalEntrada | currency:"BRL":true}}</h3>
       </ion-item>
       <ion-item>
-        <ion-icon item-left name="trending-down"></ion-icon>
+        <ion-icon color="primary" item-left name="trending-down"></ion-icon>
         <h2>Total de saídas</h2>
         <h3 item-right>{{totalSaida | currency:"BRL":true}}</h3>
       </ion-item>
       <hr>
       <ion-item>
-        <ion-icon item-left name=""></ion-icon>
-        <h2>Saldo atual</h2>
+        <ion-icon color="primary" item-left name=""></ion-icon>
+        <h2 color="primary"><strong>Saldo atual</strong></h2>
         <h3 item-right><strong>{{saldo | currency:"BRL":true}}</strong></h3>
       </ion-item>
     </ion-list>
   </ion-card>
   <ion-card>
-    <ion-card-header>
+    <ion-card-header color="primary">
       Lançamentos em aberto
     </ion-card-header>
     <hr>
     <ion-list>
       <ion-item>
-        <ion-icon item-left name="happy"></ion-icon>
+        <ion-icon color="primary" item-left name="happy"></ion-icon>
         <h2>A receber</h2>
         <h3 item-right>{{totalReceber | currency:"BRL":true}}</h3>
       </ion-item>
       <ion-item>
-        <ion-icon item-left name="sad"></ion-icon>
+        <ion-icon color="primary" item-left name="sad"></ion-icon>
         <h2>A pagar</h2>
         <h3 item-right>{{totalPagar | currency:"BRL":true}}</h3>
       </ion-item>
       <hr>
       <ion-item>
-        <ion-icon item-left name=""></ion-icon>
-        <h2>Saldo previsto</h2>
+        <ion-icon color="primary" item-left name=""></ion-icon>
+        <h2 color="primary"><strong>Saldo previsto</strong></h2>
         <h3 item-right><strong>{{saldoPrevisto | currency:"BRL":true}}</strong></h3>
       </ion-item>
     </ion-list>

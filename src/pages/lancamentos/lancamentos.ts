@@ -1,10 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
+import { Calendar, LocalNotifications } from 'ionic-native';
 import { NavController, NavParams, ModalController, AlertController,
-  ActionSheetController, Events, PopoverController, Keyboard, ToastController } from 'ionic-angular';
+  ActionSheetController, Events, PopoverController, Keyboard,
+  ToastController } from 'ionic-angular';
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { DataUtil } from  '../../providers/data-util'
 import { ModalLancamentosPage } from '../modal-lancamentos/modal-lancamentos'
 import { PopoverPage } from '../popover/popover'
+import { PermissoesDevice } from '../../providers/permissoes-device'
 
 @Component({
   selector: 'page-lancamentos',
@@ -20,6 +23,10 @@ export class LancamentosPage {
   dataFiltro: any;
   searchMode: any;
   db: any;
+  permissoes: any;
+  notificacoesPermissoes: any;
+  calendarioPermissoes: any;
+  horaNotificacoes: any;
 
   constructor(
     public navCtrl: NavController,
@@ -39,6 +46,10 @@ export class LancamentosPage {
     this.dataFiltro = new Date();
     this.searchMode = false;
     this.db = new DbLancamentos();
+    this.permissoes = new PermissoesDevice();
+
+    this.notificacoesPermissoes = false;
+    this.calendarioPermissoes = false;
   }
 
   public load() {
@@ -51,6 +62,16 @@ export class LancamentosPage {
         this.listarLancamentos = <Array<Object>> result;
     }, (error) => {
         console.log("ERROR: ", error);
+    });
+
+    this.permissoes.permissoes().then((result) => {
+      if(result.notificacao == 1) {
+        this.notificacoesPermissoes = true;
+      }
+      if(result.calendario == 1) {
+        this.calendarioPermissoes = true;
+      }
+      this.horaNotificacoes = result.horaNotificacao;
     });
   }
 
@@ -70,6 +91,8 @@ export class LancamentosPage {
             });
             toast.present();
             this.updateSaldo();
+            this.notificacao(data);
+            this.calendario(data, result);
             this.load();
           }, (error) => {
             console.log("ERROR: ", error);
@@ -96,6 +119,7 @@ export class LancamentosPage {
             });
             toast.present();
             this.updateSaldo();
+            this.notificacao(data);
             this.load();
           }, (error) => {
             console.log("ERROR: ", error);
@@ -247,6 +271,70 @@ export class LancamentosPage {
     popover.present({
       ev: ev
     });
+  }
+
+  public calendario(evento, lancamento) {
+    if(this.calendarioPermissoes) {
+      if(evento.pago == 0) {
+        let dataUtil = new DataUtil();
+        if(dataUtil.parseCompare(evento.data, this.horaNotificacoes) == 'Maior') {
+          let title = evento.descricao;
+          let location = "";
+          let notes = "";
+          if(evento.entradaSaida == "saida") {
+            notes = "Pagar " + evento.descricao + " no valor de R$" + evento.valor +
+              " para o fornecedor " + evento.fornecedor;
+          } else {
+            notes = "Receber " + evento.descricao + " no valor de R$" + evento.valor +
+              " do fornecedor " + evento.fornecedor;
+          }
+
+          let startDate = dataUtil.parseCalendar(evento.data, this.horaNotificacoes);
+          let endDate = dataUtil.parseCalendar(evento.data, this.horaNotificacoes);
+
+          let calOptions = Calendar.getCalendarOptions();
+          calOptions.calendarName = "Economia máxima";
+          calOptions.calendarId = 4;
+
+          Calendar.createEventWithOptions(title, location, notes, startDate, endDate, calOptions).then(function (result) {
+            console.log("Event created successfully");
+            console.log(result);
+          }, function (err) {
+            console.error("There was an error: " + err);
+          });
+        }
+      }
+    }
+  }
+
+  public notificacao(lancamento) {
+    if(this.notificacoesPermissoes) {
+      if(lancamento.pago == 0) {
+        let dataUtil = new DataUtil();
+        if(dataUtil.parseCompare(lancamento.data, this.horaNotificacoes) == 'Maior') {
+          let dataNoti = dataUtil.parseCalendar(lancamento.data, this.horaNotificacoes);
+          let title = "";
+          let text = "";
+          if(lancamento.entradaSaida == "saida") {
+            title = "Conta de " + lancamento.descricao;
+            text = "Pagar a conta de " + lancamento.descricao + " do fornecedor " +
+              lancamento.fornecedor +" com vencimento para hoje no valor de R$" + lancamento.valor;
+          } else {
+            title = "Receber " + lancamento.descricao;
+            text = "Receber " + lancamento.descricao + " do fornecedor " +
+              lancamento.fornecedor +" com vencimento para hoje no valor de R$" + lancamento.valor;
+          }
+          LocalNotifications.schedule([{
+            id: 1,
+            title: title,
+            text: text,
+            at: dataNoti,
+            icon: "file://icon.png",
+            smallIcon: 'file://icon_transparente.png'
+          }]);
+        }
+      }
+    }
   }
 
   ionViewDidLoad() {

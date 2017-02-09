@@ -3,6 +3,38 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DataUtil {
 
+  parseCalendar(dataMiliseconds, horaNotificacoes) {
+    let data = new Date(dataMiliseconds);
+    let ano = data.getFullYear();
+    let mes = data.getMonth();
+    let dia = data.getDate();
+    let hora = data.getHours() + horaNotificacoes;
+    return new Date(ano, mes, dia, hora);
+  }
+
+  parseCompare(data1, horaNotificacoes) {
+
+    let data = new Date(data1);
+    let ano = data.getFullYear();
+    let mes = data.getMonth();
+    let dia = data.getDate();
+    let hora = data.getHours() + horaNotificacoes;
+    data1 = new Date(ano, mes, dia, hora);
+
+    data = new Date();
+    ano = data.getFullYear();
+    mes = data.getMonth();
+    dia = data.getDate();
+    hora = data.getHours();
+    let data2 = new Date(ano, mes, dia, hora);
+
+    if(data1.getTime() < data2.getTime()) {
+      return 'Menor';
+    } else {
+      return 'Maior';
+    }
+  }
+
   parseData(data) {
     var parts = data.split("-");
     return new Date(parts[0], parts[1]-1, parts[2]);

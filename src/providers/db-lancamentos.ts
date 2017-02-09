@@ -50,7 +50,7 @@ export class DbLancamentos {
         lancamento.fornecedor, lancamento.entradaSaida, lancamento.pago]).then((data) => {
         lancamento.id = data.insertId;
         console.log("Inserido com sucesso na tabela lancamentos");
-        resolve(data);
+        resolve(lancamento);
       }, (error) => {
         console.log("Erro ao inserir na tabela lancamentos");
         reject(error);

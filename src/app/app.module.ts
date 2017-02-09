@@ -21,6 +21,8 @@ import { ConfigucacoesPage } from '../pages/configucacoes/configucacoes'
 import { SegurancaPage } from '../pages/seguranca/seguranca'
 import { SenhaAcessoPage } from '../pages/senha-acesso/senha-acesso'
 import { LoginPage } from '../pages/login/login';
+import { PermissoesDevice } from '../providers/permissoes-device'
+import { NotificacoesPage } from '../pages/notificacoes/notificacoes'
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { LoginPage } from '../pages/login/login';
     ConfigucacoesPage,
     SegurancaPage,
     SenhaAcessoPage,
-    LoginPage
+    LoginPage,
+    NotificacoesPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -62,11 +65,13 @@ import { LoginPage } from '../pages/login/login';
     ConfigucacoesPage,
     SegurancaPage,
     SenhaAcessoPage,
-    LoginPage
+    LoginPage,
+    NotificacoesPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-     Database, DbFornecedores, DbLancamentos, DataUtil, DbUsuarios
+     Database, DbFornecedores, DbLancamentos, DataUtil, DbUsuarios,
+     PermissoesDevice
   ]
 })
 export class AppModule {}

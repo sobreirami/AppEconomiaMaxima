@@ -3,6 +3,7 @@ import { Events, PopoverController, ModalController, NavController } from 'ionic
 import { DbLancamentos }  from '../../providers/db-lancamentos'
 import { PopoverPage } from '../popover/popover'
 import { DataUtil } from '../../providers/data-util'
+import { PermissoesDevice } from '../../providers/permissoes-device'
 
 @Component({
   selector: 'page-home',
@@ -40,12 +41,15 @@ export class HomePage {
       this.saldoMesPassado = parseFloat(indicadores.saldoMesPassado);
       this.totalReceber = parseFloat(indicadores.totalReceber);
       this.totalPagar = parseFloat(indicadores.totalPagar);
-      
+
       this.saldoPrevisto = this.saldo + this.totalReceber - this.totalPagar;
     });
   }
 
   public load() {
+
+    this.permissoesDevice();
+
     this.db.getSaldo(this.dataInicial, this.dataFinal).then((indicadores) => {
       this.totalEntrada = indicadores.totalEntrada;
       this.totalSaida = indicadores.totalSaida;
@@ -63,6 +67,12 @@ export class HomePage {
     popover.present({
       ev: ev
     });
+  }
+
+  permissoesDevice() {
+    let permissoes = new PermissoesDevice();
+    permissoes.notificacaoPermission();
+    permissoes.calendarPermission();
   }
 
   ionViewDidLoad() {
