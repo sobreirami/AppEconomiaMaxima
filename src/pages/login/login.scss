@@ -1,3 +1,25 @@
 page-login {
 
+  .login-content {
+
+    .logo-row {
+      padding-top: 20%;
+      padding-bottom: 20px;
+    }
+
+    .login-box {
+      padding: 20px 20px 0px 20px;
+    }
+
+    ion-row {
+      align-items: center;
+      text-align: center;
+    }
+
+    .signup-col {
+       margin: -30px 16px 0px 16px;
+       padding-bottom: 20px;
+     }
+
+  }
 }

@@ -4,21 +4,36 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-     <ion-item text-wrap class="floating-label-icon-left input-has-icon">
-       <ion-label floating>Senha</ion-label>
-      <ion-input [(ngModel)]="password" type=number style="-webkit-text-security:disc;"></ion-input>
-     </ion-item>
-    <div padding></div>
-  </ion-list>
-  <ion-row>
-    <button ion-button icon-right block (click)="loginSenha()">
-        Login
-        <ion-icon name="log-in"></ion-icon>
-    </button>
-    <button [hidden]="!finferPrint" ion-button icon-only margin-left (click)="loginBiometria()">
-      <ion-icon name="finger-print"></ion-icon>
-    </button>
+<ion-content class="login-content" padding>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="assets/images/default-avatar.png" height="120" width="120">
+    </ion-col>
+    <ion-col></ion-col>
   </ion-row>
+    <div class="login-box">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+             <ion-item text-wrap class="floating-label-icon-left input-has-icon">
+               <ion-label stacked>Senha</ion-label>
+              <ion-input [(ngModel)]="password" type=number style="-webkit-text-security:disc;"></ion-input>
+             </ion-item>
+            <div padding></div>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button large icon-right (click)="loginSenha()">
+              Login
+              <ion-icon name="log-in"></ion-icon>
+          </button>
+          <button [hidden]="!finferPrint" ion-button large icon-only margin-left (click)="loginBiometria()">
+            <ion-icon name="finger-print"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
 </ion-content>
