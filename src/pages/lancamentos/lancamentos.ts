@@ -329,8 +329,8 @@ export class LancamentosPage {
             title: title,
             text: text,
             at: dataNoti,
-            icon: "file://icon.png",
-            smallIcon: 'file://icon_transparente.png'
+            icon: 'res://icon',
+            smallIcon: 'res://icon_small'
           }]);
         }
       }
