@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "AppEconomiaMaxima",
+  "short_name": "Economia máxima",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

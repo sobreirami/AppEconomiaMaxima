@@ -22223,6 +22223,10 @@ sub {
   }
 }
 
+.force-back-button .back-button {
+  display: inline-block;
+}
+
 .entrada {
   color: green;
   background-color: rgba(0, 128, 0, 0.1);
@@ -22243,4 +22247,53 @@ sub {
 
 .fundo-transparente {
   background-color: transparent;
+}
+
+page-login .login-content .logo-row {
+  padding-top: 20%;
+  padding-bottom: 20px;
+}
+
+page-login .login-content .login-box {
+  padding: 20px 20px 0px 20px;
+}
+
+page-login .login-content ion-row {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  text-align: center;
+}
+
+page-login .login-content .signup-col {
+  margin: -30px 16px 0px 16px;
+  padding-bottom: 20px;
+}
+
+.popover-page {
+  background-color: black;
+  margin: 0px 0px 0px 0px;
+}
+
+.entrada-chart {
+  height: 1em;
+  width: 100%;
+  background: rgba(0, 128, 0, 0.1);
+}
+
+.saida-chart {
+  height: 1em;
+  width: 100%;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.background-resumo-entrada {
+  background: rgba(0, 128, 0, 0.1);
+  color: #666;
+}
+
+.background-resumo-saida {
+  background: rgba(255, 0, 0, 0.1);
+  color: #666;
 }

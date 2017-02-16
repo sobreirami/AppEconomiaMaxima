@@ -35,6 +35,20 @@ export class Database {
       });
     });
 
+
+    this.db.executeSql("SELECT * FROM fornecedores", []).then((data) => {
+        if(data.rows.length == 0) {
+          let sqlFornecedoresPadroes = "INSERT INTO fornecedores ( descricao ) VALUES ('Tim'),('Oi'),('Claro'),('Vivo'),('Banco do Brasil'),('Itaú'),('Tim'),('Bradesco'),('Banco Santander'),('Caixa Econômica Federal'),('Banco HSBC'),('Sabesp'),('Eletropaulo'),('Mercado'),('Posto de Gasolina'),('Saúde'),('Lazer'),('Outros'),('Salário'),('Educação'),('Estacionamento')";
+          this.db.executeSql(sqlFornecedoresPadroes,[]).then((data) => {
+            console.log("Fornecedores padrões lançados com sucesso!");
+          }, (error) => {
+            console.log(error);
+          });
+        }
+    } , (error) => {
+      console.log(error);
+    });
+
     let sqlConfiguracoesAlterTable = "ALTER TABLE configuracoes ADD COLUMN horaNotificacao INTEGER";
     this.db.executeSql(sqlConfiguracoesAlterTable, []).then(() => {
       this.db.executeSql("UPDATE configuracoes SET horaNotificacao = ?", [8]).then((data) => {
