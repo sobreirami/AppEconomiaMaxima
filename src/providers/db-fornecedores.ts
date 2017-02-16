@@ -75,4 +75,16 @@ export class DbFornecedores {
     });
   }
 
+  public fornecedoresPadroes() {
+    return new Promise((resolve, reject) => {
+      let sqlFornecedoresPadroes = "INSERT OR REPLACE INTO fornecedores ( descricao ) VALUES ('Tim'),('Oi'),('Claro'),('Vivo'),('Banco do Brasil'),('Itaú'),('Tim'),('Bradesco'),('Banco Santander'),('Caixa Econômica Federal'),('Banco HSBC'),('Sabesp'),('Eletropaulo'),('Mercado'),('Posto de Gasolina'),('Saúde'),('Lazer'),('Outros'),('Salário'),('Educação'),('Estacionamento')";
+      this.db.executeSql(sqlFornecedoresPadroes,[]).then((data) => {
+        console.log("Fornecedores padrões lançados com sucesso!");
+        resolve(data);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  }
+
 }

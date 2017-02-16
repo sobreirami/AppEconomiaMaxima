@@ -17,8 +17,14 @@ export class Database {
     let sqlFornecedores = 'CREATE TABLE IF NOT EXISTS fornecedores(id INTEGER PRIMARY KEY AUTOINCREMENT, descricao TEXT)';
     this.db.executeSql(sqlFornecedores, []);
 
+    let sqlFornecedoresUnicos = 'CREATE UNIQUE INDEX IF NOT EXISTS ux_fornecedor_unique ON fornecedores(descricao)';
+    this.db.executeSql(sqlFornecedoresUnicos, []);
+
     let sqlUsuarios = 'CREATE TABLE IF NOT EXISTS usuarios(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, token TEXT)';
     this.db.executeSql(sqlUsuarios, []);
+
+    let sqlUsuariosUnicos = 'CREATE UNIQUE INDEX IF NOT EXISTS ux_usuario_unique ON usuarios(username)';
+    this.db.executeSql(sqlUsuariosUnicos, []);
 
     let sqlCriaUsuario = "INSERT OR REPLACE INTO usuarios (username) VALUES ('economiamaxima')"
     this.db.executeSql(sqlCriaUsuario, []);
@@ -34,7 +40,6 @@ export class Database {
         console.log(error);
       });
     });
-
 
     this.db.executeSql("SELECT * FROM fornecedores", []).then((data) => {
         if(data.rows.length == 0) {

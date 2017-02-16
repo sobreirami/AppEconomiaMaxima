@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController,
-   Keyboard, ToastController } from 'ionic-angular';
+   Keyboard, ToastController, PopoverController } from 'ionic-angular';
 import { DbFornecedores } from '../../providers/db-fornecedores'
-import { ModalFornecedoresPage } from "../modal-fornecedores/modal-fornecedores"
+import { ModalFornecedoresPage } from '../modal-fornecedores/modal-fornecedores'
+import { FornecedoresPadroesPage } from '../fornecedores-padroes/fornecedores-padroes'
 
 @Component({
   selector: 'page-fornecedores',
@@ -24,7 +25,8 @@ export class FornecedoresPage {
     private dbFornecedores: DbFornecedores,
     public alertCtrl: AlertController,
     public keyboard: Keyboard,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    private popoverCtrl: PopoverController
   ) {
       this.nav = navCtrl;
       this.modal = modalCtrl;
@@ -141,6 +143,27 @@ export class FornecedoresPage {
   public CancelbuscarFornecedores() {
     this.searchMode = false;
     this.searchBar._searchbarInput.nativeElement.autofocus = false;
+  }
+
+  public openPopoverFornecedores(ev) {
+    let popover = this.popoverCtrl.create(FornecedoresPadroesPage);
+    popover.onDidDismiss((data) => {
+      if(data == 'clickButton') {
+        this.dbFornecedores.fornecedoresPadroes().then((result) => {
+          let toast = this.toastCtrl.create({
+            message: 'Fornecedores lançados com sucesso',
+            duration: 3000
+          });
+          toast.present();
+          this.load();
+        }, (error) => {
+            console.log("ERROR: ", error);
+        });
+      }
+    });
+    popover.present({
+    	ev: ev
+    });
   }
 
 }

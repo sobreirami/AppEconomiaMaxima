@@ -23,6 +23,7 @@ import { SenhaAcessoPage } from '../pages/senha-acesso/senha-acesso'
 import { LoginPage } from '../pages/login/login';
 import { PermissoesDevice } from '../providers/permissoes-device'
 import { NotificacoesPage } from '../pages/notificacoes/notificacoes'
+import { FornecedoresPadroesPage } from '../pages/fornecedores-padroes/fornecedores-padroes'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NotificacoesPage } from '../pages/notificacoes/notificacoes'
     SegurancaPage,
     SenhaAcessoPage,
     LoginPage,
-    NotificacoesPage
+    NotificacoesPage,
+    FornecedoresPadroesPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -66,7 +68,8 @@ import { NotificacoesPage } from '../pages/notificacoes/notificacoes'
     SegurancaPage,
     SenhaAcessoPage,
     LoginPage,
-    NotificacoesPage
+    NotificacoesPage,
+    FornecedoresPadroesPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
