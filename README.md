@@ -9,7 +9,7 @@ Aplicativo desenvolvido em Ionic 2 para gerenciar economias de forma simples e e
 - [X] Configuração de senha para acesso
 - [ ] Perfil do usuário
 - [ ] Esqueceu sua senha
-- [ ] Fornecedores padrões
+- [X] Fornecedores padrões
 - [ ] Contas bancárias
 - [ ] Instalador automático
 
