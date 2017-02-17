@@ -75,6 +75,17 @@ export class HomePage {
     permissoes.calendarPermission();
   }
 
+  homeSaldoColor(saldo) {
+    let classeCSS : string;
+
+    if(saldo < 0) {
+      classeCSS = "homeSaldoNegativo";
+    } else {
+      classeCSS = "homeSaldoPositivo";
+    }
+    return classeCSS;
+  }
+
   ionViewDidLoad() {
     this.load();
     console.log('ionViewDidLoad');

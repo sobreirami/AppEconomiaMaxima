@@ -30,18 +30,28 @@ export class MyApp {
       StatusBar.overlaysWebView(true);
       StatusBar.backgroundColorByHexString('#1768f3');
     }).then(() => {
-      this.db.openDatabase().then(() => this.db.createTable()).then(() => {
-        this.dbUser.getUser().then((usuario) => {
-          if(usuario.token || usuario.password) {
-            this.rootPage = LoginPage;
-            Splashscreen.hide();
-          } else {
+      this.db.openDatabase().then(() => {
+        this.db.createTable().then(() => {
+          console.log('Passou open database');
+
+          this.dbUser.getUser().then((usuario) => {
+            console.log('user');
+            if(usuario.token || usuario.password) {
+              this.rootPage = LoginPage;
+              Splashscreen.hide();
+            } else {
+              this.rootPage = TabsPage;
+              Splashscreen.hide();
+            }
+          }, (error) => {
+
+            console.log('Erro');
+
             this.rootPage = TabsPage;
             Splashscreen.hide();
-          }
+          });
         }, (error) => {
-          this.rootPage = TabsPage;
-          Splashscreen.hide();
+          console.log(error);
         });
       });
     });
