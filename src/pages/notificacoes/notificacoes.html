@@ -22,7 +22,7 @@
     </ion-item>
     <ion-item>
       <ion-label style="color:black;">Hora da notificação</ion-label>
-      <ion-datetime displayFormat="h A" pickerFormat="h A" [(ngModel)]="horaNotificacao" (ionChange)="alteraHoraNotificacao()"></ion-datetime>
+      <ion-datetime doneText="Selecionar" cancelText="Cancelar" displayFormat="H A" pickerFormat="H A" [(ngModel)]="horaNotificacao" (ionChange)="alteraHoraNotificacao()"></ion-datetime>
       <ion-icon color="primary" name='time' item-left></ion-icon>
     </ion-item>
   </ion-list>

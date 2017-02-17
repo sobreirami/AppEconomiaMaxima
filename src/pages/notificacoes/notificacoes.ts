@@ -38,10 +38,6 @@ export class NotificacoesPage {
         this.userCalendario = true;
       }
 
-      if(result.horaNotificacao == '0') {
-        result.horaNotificacao = 12;
-      }
-
       let horaNotificacaoInt = result.horaNotificacao + ":00";
 
       if((horaNotificacaoInt.length) == 4) {
@@ -102,7 +98,7 @@ export class NotificacoesPage {
     let separa = this.horaNotificacao.split(":");
     let hora = separa[0];
 
-    if(hora > '10') {
+    if(hora >= '10') {
       this.db.atualizarHoraNotificacao(hora).then((data) => {
         let toast = this.toastCtrl.create({
           message: 'Hora notificação atualizada',
@@ -113,27 +109,15 @@ export class NotificacoesPage {
       });
       console.log(hora);
     } else {
-      if(hora == '12') {
-        this.db.atualizarHoraNotificacao(0).then((data) => {
-          let toast = this.toastCtrl.create({
-            message: 'Hora notificação atualizada',
-            duration: 3000
-          });
-          toast.present();
-          this.load();
+      this.db.atualizarHoraNotificacao(hora.replace(0,"")).then((data) => {
+        let toast = this.toastCtrl.create({
+          message: 'Hora notificação atualizada',
+          duration: 3000
         });
-        console.log(0);
-      } else {
-        this.db.atualizarHoraNotificacao(hora.replace(0,"")).then((data) => {
-          let toast = this.toastCtrl.create({
-            message: 'Hora notificação atualizada',
-            duration: 3000
-          });
-          toast.present();
-          this.load();
-        });
-        console.log(hora.replace(0,""));
-      }
+        toast.present();
+        this.load();
+      });
+      console.log(hora.replace(0,""));
     }
   }
 
