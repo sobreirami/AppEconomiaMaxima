@@ -24,6 +24,7 @@ import { LoginPage } from '../pages/login/login';
 import { PermissoesDevice } from '../providers/permissoes-device'
 import { NotificacoesPage } from '../pages/notificacoes/notificacoes'
 import { FornecedoresPadroesPage } from '../pages/fornecedores-padroes/fornecedores-padroes'
+import { PerfilPage } from '../pages/perfil/perfil'
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { FornecedoresPadroesPage } from '../pages/fornecedores-padroes/fornecedo
     SenhaAcessoPage,
     LoginPage,
     NotificacoesPage,
-    FornecedoresPadroesPage
+    FornecedoresPadroesPage,
+    PerfilPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -69,7 +71,8 @@ import { FornecedoresPadroesPage } from '../pages/fornecedores-padroes/fornecedo
     SenhaAcessoPage,
     LoginPage,
     NotificacoesPage,
-    FornecedoresPadroesPage
+    FornecedoresPadroesPage,
+    PerfilPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

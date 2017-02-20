@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { SegurancaPage } from '../seguranca/seguranca'
 import { NotificacoesPage } from '../notificacoes/notificacoes'
+import { PerfilPage } from '../perfil/perfil'
 
 @Component({
   selector: 'page-configucacoes',
@@ -24,6 +25,10 @@ export class ConfigucacoesPage {
 
   public seguranca() {
     this.nav.push(SegurancaPage);
+  }
+
+  public perfil() {
+    this.nav.push(PerfilPage);
   }
 
   ionViewDidLoad() {
