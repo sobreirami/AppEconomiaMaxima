@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavController } from 'ionic-angular';
+import { App, ViewController, NavController } from 'ionic-angular';
 import { FornecedoresPage } from '../fornecedores/fornecedores'
 import { RelatorioLancamentosPage } from '../relatorio-lancamentos/relatorio-lancamentos'
 import { ConfigucacoesPage } from '../configucacoes/configucacoes'
@@ -20,6 +20,7 @@ export class PopoverPage {
 
   constructor(
     public viewCtrl: ViewController,
+    public appCtrl: App,
     public navCtrl: NavController,
   ) {
     this.nav = navCtrl;
@@ -36,8 +37,8 @@ export class PopoverPage {
   }
 
   openPage(page) {
-    this.nav.push(page.component);
     this.viewCtrl.dismiss();
+    this.appCtrl.getRootNav().push(page.component);
   }
 
 }
