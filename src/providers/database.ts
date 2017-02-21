@@ -27,7 +27,7 @@ export class Database {
 
             if(data.rows.length == 0) {
               console.log("data.rows.length : " + data.rows.length);
-              let sqlFornecedoresPadroes = "INSERT OR REPLACE INTO fornecedores ( descricao ) VALUES ('Tim'),('Oi'),('Claro'),('Vivo'),('Banco do Brasil'),('Itaú'),('Tim'),('Bradesco'),('Banco Santander'),('Caixa Econômica Federal'),('Banco HSBC'),('Sabesp'),('Eletropaulo'),('Mercado'),('Posto de Gasolina'),('Saúde'),('Lazer'),('Outros'),('Salário'),('Educação'),('Estacionamento')";
+              let sqlFornecedoresPadroes = "INSERT OR REPLACE INTO fornecedores ( descricao ) VALUES ('Tim'),('Oi'),('Claro'),('Vivo'),('Banco do Brasil'),('Itaú'),('Tim'),('Bradesco'),('Banco Santander'),('Caixa Econômica Federal'),('Banco HSBC'),('Sabesp'),('Eletropaulo'),('Mercado'),('Posto de Gasolina'),('Saúde'),('Lazer'),('Outros'),('Salário'),('Educação'),('Estacionamento'),('Veterinário')";
               this.db.executeSql(sqlFornecedoresPadroes,[]).then((data) => {
                 console.log("Fornecedores padrões lançados com sucesso!");
               }, (error) => {
