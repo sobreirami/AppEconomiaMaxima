@@ -1,3 +1,22 @@
 page-perfil {
 
+  .logo-row {
+    padding-bottom: 20px;
+  }
+
+  .icon-camera {
+    position: relative;
+    font-size: 40px;
+    margin-left: -40px;
+    padding-top: 5px;
+    background-color: #387ef5;
+    border-radius: 180px;
+    width: 55px; height: 55px;
+  }
+
+  ion-row {
+    align-items: center;
+    text-align: center;
+  }
+
 }
