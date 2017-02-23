@@ -4,6 +4,8 @@ import { AndroidFingerprintAuth } from 'ionic-native';
 import { DbUsuarios } from '../../providers/db-usuarios'
 import { TabsPage } from '../tabs/tabs';
 
+declare var cordova: any;
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -17,6 +19,7 @@ export class LoginPage {
   public userPass: any;
   public suportefingerPrint: any;
   public password: any;
+  lastImage: string = null;
 
   constructor(
     public navCtrl: NavController,
@@ -38,6 +41,9 @@ export class LoginPage {
       }
       if(usuario.password) {
         this.userPass = usuario.password;
+      }
+      if(usuario.imagem) {
+        this.lastImage = usuario.imagem;
       }
     });
   }
@@ -82,6 +88,22 @@ export class LoginPage {
       });
       toast.present();
     });
+  }
+
+  public pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      return cordova.file.dataDirectory + img;
+    }
+  }
+
+  imagemPerfil() {
+    if(this.lastImage) {
+      return this.pathForImage(this.lastImage);
+    } else {
+      return 'assets/images/default-avatar.png';
+    }
   }
 
   ionViewDidLoad() {
