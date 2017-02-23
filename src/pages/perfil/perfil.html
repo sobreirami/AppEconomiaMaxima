@@ -12,8 +12,8 @@
 <ion-content padding>
   <ion-row class="logo-row">
     <ion-col></ion-col>
-    <ion-col width-67>
-      <img class="image-camera" src="assets/images/default-avatar.png" height="150" width="150">
+    <ion-col width-67 (click)="fotoUser()">
+      <img class="image-camera" src="{{ imagemPerfil() }}" height="150" width="150">
       <ion-icon class="icon-camera" color="light" name="camera" item-left></ion-icon>
     </ion-col>
     <ion-col></ion-col>
@@ -22,7 +22,7 @@
   <ion-list>
     <ion-item>
       <ion-label stacked>Nome</ion-label>
-      <ion-input type="text" [(ngModel)]="nome" autocomplete="on" autocorrect="on"></ion-input>
+      <ion-input type="text" [(ngModel)]="username" autocomplete="on" autocorrect="on"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>E-mail</ion-label>
