@@ -49,11 +49,28 @@ export class Database {
           this.db.executeSql("SELECT * FROM usuarios", []).then((data) => {
             if(data.rows.length == 0) {
               console.log('usuario setado com sucesso!');
-              let sqlCriaUsuario = "INSERT OR REPLACE INTO usuarios (username) VALUES ('economiamaxima')"
+              let sqlCriaUsuario = "INSERT OR REPLACE INTO usuarios (username) VALUES ('')"
               this.db.executeSql(sqlCriaUsuario, []);
             }
           });
         });
+
+        console.log('User antes alter');
+
+        let sqlAlterUsuariosEmail = "ALTER TABLE usuarios ADD COLUMN email TEXT";
+        this.db.executeSql(sqlAlterUsuariosEmail, []).then(() => {
+          console.log("Alter email usuarios realizado com sucesso!");
+        }, (error) => {
+          console.log(error);
+        });
+
+        let sqlAlterUsuariosImagem = "ALTER TABLE usuarios ADD COLUMN imagem TEXT";
+        this.db.executeSql(sqlAlterUsuariosImagem, []).then(() => {
+          console.log("Alter imagem usuarios realizado com sucesso!");
+        }, (error) => {
+          console.log(error);
+        });
+
       }, (error) => {
         console.log(error);
       });
