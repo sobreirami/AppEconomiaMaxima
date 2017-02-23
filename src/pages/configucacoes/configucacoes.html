@@ -7,10 +7,10 @@
 <ion-content padding>
   <ion-item no-lines (click)="perfil()">
     <ion-avatar item-left style="height:100px; width:100px;">
-      <img src="assets/images/default-avatar.png" height="150" width="150" style="height:100px; width:100px;">
+      <img src="{{ imagemPerfil() }}" height="150" width="150" style="height:100px; width:100px;">
     </ion-avatar>
-    <h2><strong>Michel Sobreira</strong></h2>
-    <h3>sobreira.michel@gmail.com</h3>
+    <h2><strong>{{username}}</strong></h2>
+    <h3>{{email}}</h3>
   </ion-item>
   <hr>
   <ion-list>

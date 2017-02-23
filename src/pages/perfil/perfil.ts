@@ -42,6 +42,7 @@ export class PerfilPage {
       }
     });
   }
+  
   public salvar() {
     this.usuario = {
       username: this.username,
